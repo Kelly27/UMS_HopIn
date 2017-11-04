@@ -58,10 +58,10 @@ export class HomePage {
             this.map.setMyLocationEnabled(true);
 
             this.map.getMyLocation().then((location) => {
-                let location = location.latLng;
-                console.log(location);
+                let Loc = location.latLng;
+                console.log(Loc);
                 let option : CameraPostion = {
-                    target : location,
+                    target : Loc,
                     zoom : 13
                 }
                 this.map.moveCamera(option);
