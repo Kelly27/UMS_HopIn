@@ -21,6 +21,7 @@ import {
 export class HomePage {
     map: GoogleMap;
     @ViewChild('map') mapElement: ElementRef;
+    private trafficFlag:boolean = false;
     // public Lat: float;
     // public Lng: float;
 
@@ -60,7 +61,7 @@ export class HomePage {
             this.map.getMyLocation().then((location) => {
                 let Loc = location.latLng;
                 console.log(Loc);
-                let option : CameraPostion = {
+                let option : CameraPosition <any> = {
                     target : Loc,
                     zoom : 13
                 }
@@ -87,7 +88,15 @@ export class HomePage {
         });
     }
 
-    getMyLocation(){
-
+    traffic_on(){
+        console.log(this.trafficFlag);
+        if(this.trafficFlag === false){
+            this.trafficFlag = true;
+            this.map.setTrafficEnabled(this.trafficFlag);
+        }
+        else{
+            this.trafficFlag = false;
+            this.map.setTrafficEnabled(this.trafficFlag);
+        }
     }
 }
