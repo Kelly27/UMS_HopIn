@@ -1,14 +1,15 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Home</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <div #map id="map" style="height: 100%"></div>
-  <button ion-button secondary menuToggle>Toggle Menu</button>
-
+    <div #map id="map" style="height: 100%">
+        <button ion-button color="light" id="traffic" (click)='traffic_on()'><i class="material-icons">traffic</i></button>
+    </div>
+    <button ion-button secondary menuToggle>Toggle Menu</button>
 </ion-content>

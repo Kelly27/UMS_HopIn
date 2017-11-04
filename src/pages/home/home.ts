@@ -12,6 +12,8 @@ import {
     Marker
 } from '@ionic-native/google-maps';
 
+// import { Geolocation } from '@ionic-native/geolocation';
+
 @Component({
     selector: 'page-home',
     templateUrl: 'home.html'
@@ -19,24 +21,29 @@ import {
 export class HomePage {
     map: GoogleMap;
     @ViewChild('map') mapElement: ElementRef;
+    // public Lat: float;
+    // public Lng: float;
 
     constructor(public navCtrl: NavController,
-        private googleMaps: GoogleMaps) {
+        private googleMaps: GoogleMaps,
+        // private _geoLoc: Geolocation
+    ) {
 
     }
 
     ionViewDidLoad() {
         this.loadMap();
+
         console.log('running');
     }
 
     loadMap(){
         let mapOptions: GoogleMapOptions = {
             camera: {
-                target: {
-                    lat: 5.978840,
-                    lng: 116.07532
-                },
+                // target: {
+                //     lat: 5.978840,
+                //     lng: 116.07532
+                // },
                 zoom: 13
             }
         };
@@ -48,7 +55,18 @@ export class HomePage {
         this.map.one(GoogleMapsEvent.MAP_READY)
         .then(() => {
             console.log('Map is ready!');
-            this.map.setTrafficEnabled(true);
+            this.map.setMyLocationEnabled(true);
+
+            this.map.getMyLocation().then((location) => {
+                let location = location.latLng;
+                console.log(location);
+                let option : CameraPostion = {
+                    target : location,
+                    zoom : 13
+                }
+                this.map.moveCamera(option);
+            });
+
             // Now you can use all methods safely.
             this.map.addMarker({
                 title: 'Ionic',
@@ -69,4 +87,7 @@ export class HomePage {
         });
     }
 
+    getMyLocation(){
+
+    }
 }
