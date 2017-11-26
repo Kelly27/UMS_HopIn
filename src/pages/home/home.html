@@ -9,7 +9,13 @@
 
 <ion-content>
     <div #map id="map" style="height: 100%">
-        <button ion-button color="light" id="traffic" (click)='traffic_on()'><i class="material-icons">traffic</i></button>
+        <button ion-button color="light" id="traffic" (click)='trafficToggle()'><i class="material-icons">traffic</i></button>
     </div>
+
+    <ion-fab right bottom>
+        <button ion-fab (click)="showBusFilter()">
+            <ion-icon name="bus"></ion-icon>
+        </button>
+    </ion-fab>
     <button ion-button secondary menuToggle>Toggle Menu</button>
 </ion-content>

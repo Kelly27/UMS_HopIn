@@ -1,6 +1,6 @@
-//ionic nativr google map tutorial : https://codeburst.io/native-google-maps-and-geolocation-ionic-fe635a00249d
+//ionic native google map tutorial : https://codeburst.io/native-google-maps-and-geolocation-ionic-fe635a00249d
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 
 import {
     GoogleMaps,
@@ -26,6 +26,7 @@ export class HomePage {
     // public Lng: float;
 
     constructor(public navCtrl: NavController,
+        public alertCtrl: AlertController,
         private googleMaps: GoogleMaps,
         // private _geoLoc: Geolocation
     ) {
@@ -63,7 +64,7 @@ export class HomePage {
                 console.log(Loc);
                 let option : CameraPosition <any> = {
                     target : Loc,
-                    zoom : 13
+                    zoom : 15
                 }
                 this.map.moveCamera(option);
             });
@@ -88,15 +89,52 @@ export class HomePage {
         });
     }
 
-    traffic_on(){
+    trafficToggle(){
         console.log(this.trafficFlag);
-        if(this.trafficFlag === false){
-            this.trafficFlag = true;
-            this.map.setTrafficEnabled(this.trafficFlag);
-        }
-        else{
-            this.trafficFlag = false;
-            this.map.setTrafficEnabled(this.trafficFlag);
-        }
+        this.trafficFlag = !this.trafficFlag;
+        this.map.setTrafficEnabled(this.trafficFlag);
+    }
+
+    //alert for bus filter
+    showBusFilter(){
+        let alert = this.alertCtrl.create();
+        alert.setSubTitle('Choose bus/buses that you wish to see.');
+
+        alert.addInput({
+            type:'checkbox',
+            label: 'Campus',
+            value: 'value1',
+            checked: true
+        });
+
+        alert.addInput({
+            type:'checkbox',
+            label: 'Usia',
+            value: 'value2',
+            checked: false
+        });
+
+        alert.addInput({
+            type:'checkbox',
+            label: 'Angkasa',
+            value: 'value3',
+            checked: true
+        });
+
+        alert.addInput({
+            type:'checkbox',
+            label: 'Kingfisher',
+            value: 'value4',
+            checked: false
+        });
+
+        alert.addButton('Cancel');
+        alert.addButton({
+            text: 'Okay',
+            handler: data => {
+                console.log('data: ', data);
+            }
+        });
+        alert.present();
     }
 }
