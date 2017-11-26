@@ -22,6 +22,8 @@ export class HomePage {
     map: GoogleMap;
     @ViewChild('map') mapElement: ElementRef;
     private trafficFlag:boolean = false;
+    testCheckboxOpen: boolean;
+    testCheckboxResult = [true, false, false, false];
     // public Lat: float;
     // public Lng: float;
 
@@ -104,28 +106,28 @@ export class HomePage {
             type:'checkbox',
             label: 'Campus',
             value: 'value1',
-            checked: true
+            checked: this.testCheckboxResult[0]
         });
 
         alert.addInput({
             type:'checkbox',
             label: 'Usia',
             value: 'value2',
-            checked: false
+            checked: this.testCheckboxResult[1]
         });
 
         alert.addInput({
             type:'checkbox',
             label: 'Angkasa',
             value: 'value3',
-            checked: true
+            checked: this.testCheckboxResult[2]
         });
 
         alert.addInput({
             type:'checkbox',
             label: 'Kingfisher',
             value: 'value4',
-            checked: false
+            checked: this.testCheckboxResult[3]
         });
 
         alert.addButton('Cancel');
@@ -133,6 +135,8 @@ export class HomePage {
             text: 'Okay',
             handler: data => {
                 console.log('data: ', data);
+                this.testCheckboxOpen = false;
+                this.testCheckboxResult = data;
             }
         });
         alert.present();
