@@ -5,6 +5,10 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { BusSchedulePage } from '../pages/bus-schedule/bus-schedule';
+import { AnnouncementPage } from '../pages/announcement/announcement';
+import { BusReservationPage } from '../pages/bus-reservation/bus-reservation';
+import { ReportPage } from '../pages/report/report';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -16,7 +20,11 @@ import { Geolocation} from "@ionic-native/geolocation";
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    BusSchedulePage,
+    AnnouncementPage,
+    BusReservationPage,
+    ReportPage
   ],
   imports: [
     BrowserModule,
@@ -26,7 +34,11 @@ import { Geolocation} from "@ionic-native/geolocation";
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    BusSchedulePage,
+    AnnouncementPage,
+    BusReservationPage,
+    ReportPage
   ],
   providers: [
     GoogleMaps,

@@ -17,11 +17,14 @@
 
 ion-toolbar{
     height: 200px;
+    padding: 0px !important;
 }
 
-#ums_logo{
-    background-color: #F2F2F3;
-    margin: 0 auto;
-    box-shadow: 2px 3px 18px 0px grey;
-    padding: 10px 25px;
+#menu_header{
+    background: linear-gradient( rgba(0,0,0,0.2), rgba(0,0,0,0.2) ), url('../assets/imgs/bg.jpg')  !important ;
+    background-size: cover;
+    background-position: 10% 20%;
+    background-repeat: no-repeat;
+    width: 105%;
+    height: 200px;
 }
