@@ -7,6 +7,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { BusSchedulePage } from '../pages/bus-schedule/bus-schedule';
 import { AnnouncementPage } from '../pages/announcement/announcement';
+import { AnnouncementDetailPage } from '../pages/announcement-detail/announcement-detail';
 import { BusReservationPage } from '../pages/bus-reservation/bus-reservation';
 import { ReportPage } from '../pages/report/report';
 
@@ -24,6 +25,7 @@ import { AnnouncementProvider } from '../providers/announcement/announcement';
     HomePage,
     BusSchedulePage,
     AnnouncementPage,
+    AnnouncementDetailPage,
     BusReservationPage,
     ReportPage
   ],
@@ -38,6 +40,7 @@ import { AnnouncementProvider } from '../providers/announcement/announcement';
     HomePage,
     BusSchedulePage,
     AnnouncementPage,
+    AnnouncementDetailPage,
     BusReservationPage,
     ReportPage
   ],

@@ -20,6 +20,26 @@ ion-toolbar{
     padding: 0px !important;
 }
 
+#menu-content{
+    .scroll-content{
+        background-color: white !important;
+        margin-top: 225px !important;
+    }
+    button{
+        border-bottom: none;
+        .item-inner{
+            border-bottom: none;
+        }
+        ion-label{
+            font-style: bold;
+        }
+        ion-icon{
+            margin-right: 15px;
+            font-size: x-large;
+        }
+    }
+}
+
 #menu_header{
     background: linear-gradient( rgba(0,0,0,0.2), rgba(0,0,0,0.2) ), url('../assets/imgs/bg.jpg')  !important ;
     background-size: cover;

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AnnouncementProvider } from '../../providers/announcement/announcement';
+import { AnnouncementDetailPage } from '../announcement-detail/announcement-detail';
 /**
  * Generated class for the AnnouncementPage page.
  *
@@ -28,10 +29,12 @@ export class AnnouncementPage {
       .subscribe((response) => {
         this.allAnnouncement = response;
       });
-    console.log(this.allAnnouncement);
   }
 
-  goToAnnounceDetailPage(){
+  goToAnnounceDetailPage(announce){
+    this.navCtrl.push(AnnouncementDetailPage,{
+      announceDetail: announce
+    })
   }
 
 }
