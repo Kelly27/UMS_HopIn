@@ -37,8 +37,6 @@ export class HomePage {
 
     ionViewDidLoad() {
         this.loadMap();
-
-        console.log('running');
     }
 
     loadMap(){
@@ -74,11 +72,13 @@ export class HomePage {
             // Now you can use all methods safely.
             this.map.addMarker({
                 title: 'Ionic',
-                icon: 'blue',
+                icon: { url: './assets/icon/bus.png',
+                        size: { width: 35, height: 35}
+                      },
                 animation: 'DROP',
                 position: {
-                    lat: 5.978840,
-                    lng: 116.07532
+                    lat: 6.0333,
+                    lng: 116.1229
                 }
             })
             .then(marker => {
@@ -87,6 +87,22 @@ export class HomePage {
                     alert('clicked');
                 });
             });
+
+            //add polyline on map method
+            var HND_AIR_PORT = {lat: 35.548852, lng: 139.784086};
+                var SFO_AIR_PORT = {lat: 37.615223, lng: -122.389979};
+                var HNL_AIR_PORT = {lat: 21.324513, lng: -157.925074};
+                var AIR_PORTS = [
+                  HND_AIR_PORT,
+                  HNL_AIR_PORT,
+                  SFO_AIR_PORT
+                ];
+            this.map.addPolyline({
+                points: AIR_PORTS,
+                'color' : '#AA00FF',
+                'width': 10,
+                'geodesic': true
+              });
 
         });
     }
@@ -104,28 +120,28 @@ export class HomePage {
 
         alert.addInput({
             type:'checkbox',
-            label: 'Campus',
+            label: 'Bus 1',
             value: 'value1',
             checked: this.testCheckboxResult[0]
         });
 
         alert.addInput({
             type:'checkbox',
-            label: 'Usia',
+            label: 'Bus 2',
             value: 'value2',
             checked: this.testCheckboxResult[1]
         });
 
         alert.addInput({
             type:'checkbox',
-            label: 'Angkasa',
+            label: 'Bus 3',
             value: 'value3',
             checked: this.testCheckboxResult[2]
         });
 
         alert.addInput({
             type:'checkbox',
-            label: 'Kingfisher',
+            label: 'Bus 4',
             value: 'value4',
             checked: this.testCheckboxResult[3]
         });

@@ -17,5 +17,15 @@
 
 
 <ion-content padding>
-
+    <ion-card *ngFor="let announce of allAnnouncement" (click) = goToAnnounceDetailPage()>
+        <ion-card-header color="primary" id="title">
+            <ion-icon name="volume-up"></ion-icon>
+            {{announce.title}}
+            <hr>
+        </ion-card-header>
+        <ion-card-content>
+            <p id="date">{{announce.created_at}}</p>
+            <p id="content">{{announce.content}}</p>
+        </ion-card-content>
+    </ion-card>
 </ion-content>

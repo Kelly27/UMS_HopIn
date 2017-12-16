@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { BusSchedulePage } from '../pages/bus-schedule/bus-schedule';
 import { AnnouncementPage } from '../pages/announcement/announcement';
 import { BusReservationPage } from '../pages/bus-reservation/bus-reservation';
@@ -16,17 +16,19 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { Geolocation} from "@ionic-native/geolocation";
 
+import { AnnouncementProvider } from '../providers/announcement/announcement';
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage,
     BusSchedulePage,
     AnnouncementPage,
     BusReservationPage,
     ReportPage
   ],
   imports: [
+    HttpModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
   ],
@@ -34,7 +36,6 @@ import { Geolocation} from "@ionic-native/geolocation";
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage,
     BusSchedulePage,
     AnnouncementPage,
     BusReservationPage,
@@ -45,7 +46,8 @@ import { Geolocation} from "@ionic-native/geolocation";
     Geolocation,
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AnnouncementProvider
   ]
 })
 export class AppModule {}

@@ -1,3 +1,20 @@
 page-announcement {
+    #date{
+        font-size: x-small;
+        color: grey;
+    }
 
+    #title{
+        padding-bottom: 0px;
+        ion-icon{
+            margin-right:  5px;
+        }
+    }
+
+    #content{
+        display: -webkit-box !important;
+        -webkit-line-clamp: 3   !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+    }
 }
