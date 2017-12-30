@@ -17,5 +17,14 @@
 
 
 <ion-content padding>
-
+    <p>What would you like to report about?</p>
+    <ion-list>
+        <ion-item *ngFor = 'let issue of issues'>
+            <ion-radio value="{{issue.value}}"></ion-radio>
+            <ion-label>{{issue.name}}</ion-label>
+        </ion-item>
+    </ion-list>
+    <button ion-button id="submit-btn">
+        Submit
+    </button>
 </ion-content>

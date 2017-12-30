@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { BusReservationAddPage } from '../bus-reservation-add/bus-reservation-add';
 /**
  * Generated class for the BusReservationPage page.
  *
@@ -20,6 +20,10 @@ export class BusReservationPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BusReservationPage');
+  }
+
+  goToAddBusReservePage(){
+    this.navCtrl.push(BusReservationAddPage,{})
   }
 
 }

@@ -6,16 +6,45 @@
 -->
 <ion-header>
 
-  <ion-navbar color="primary">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Bus Reservation</ion-title>
-  </ion-navbar>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title>Bus Reservation</ion-title>
+        
+        <ion-buttons end>
+            <button ion-button icon-only (click)=goToAddBusReservePage()>
+                <ion-icon name="add"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+    
+    <ion-searchbar (ionInput)="getItems($event)" id="searchbar"></ion-searchbar>
 
 </ion-header>
 
 
 <ion-content padding>
+    <ion-card>
+        <ion-grid>
+            <ion-row>
+                <ion-col col-4>
+                    <ion-label stacked id="label">REFERENCE NO:</ion-label>
+                    <p>JPP-01</p>
+                </ion-col>
+                <ion-col col-5>
+                    <ion-label stacked id="label">REQUESTED ON:</ion-label>
+                    <p>06 DEC </p>
+                </ion-col>
+                <ion-col col-3>
+                    <ion-label stacked id="label">STATUS:</ion-label>
+                    <p id="danger">Pending</p>
+                    <p id="approved">Approved</p>
+                    <a id="detail-navi" href="#">VIEW DETAILS</a>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
 
+    </ion-card>
 </ion-content>

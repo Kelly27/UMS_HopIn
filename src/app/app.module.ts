@@ -9,6 +9,7 @@ import { BusSchedulePage } from '../pages/bus-schedule/bus-schedule';
 import { AnnouncementPage } from '../pages/announcement/announcement';
 import { AnnouncementDetailPage } from '../pages/announcement-detail/announcement-detail';
 import { BusReservationPage } from '../pages/bus-reservation/bus-reservation';
+import { BusReservationAddPage } from '../pages/bus-reservation-add/bus-reservation-add';
 import { ReportPage } from '../pages/report/report';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -27,6 +28,7 @@ import { AnnouncementProvider } from '../providers/announcement/announcement';
     AnnouncementPage,
     AnnouncementDetailPage,
     BusReservationPage,
+    BusReservationAddPage,
     ReportPage
   ],
   imports: [
@@ -42,6 +44,7 @@ import { AnnouncementProvider } from '../providers/announcement/announcement';
     AnnouncementPage,
     AnnouncementDetailPage,
     BusReservationPage,
+    BusReservationAddPage,
     ReportPage
   ],
   providers: [

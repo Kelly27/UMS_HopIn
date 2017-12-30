@@ -1,0 +1,78 @@
+<!--
+Generated template for the BusReservationAddPage page.
+
+See http://ionicframework.com/docs/components/#navigation for more info on
+Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Bus Reservation - Create</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)=goToBusReserveIndexPage()>
+                <ion-icon name="close"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+    <p padding id="reference">Reference Number: </p>
+</ion-header>
+
+
+<ion-content padding>
+    <h3>Applicant's Information</h3>
+    <ion-item>
+        <ion-label stacked>Name:</ion-label>
+        <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>Staff Number:</ion-label>
+        <ion-input type="text"></ion-input>
+    </ion-item>
+     <ion-item>
+        <ion-label stacked>Faculty / Center / Institute / Unit / Club / Department:</ion-label>
+        <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item style="padding-bottom: 15px;">
+        <ion-label stacked>Contact Number:</ion-label>
+        <ion-input type="text"></ion-input>
+    </ion-item>
+
+    <h3>Bus Reservation Details</h3>
+    <ion-item>
+        <ion-label stacked>Activity / Event Description:</ion-label>
+        <ion-input type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Type of vehicle:</ion-label>
+        <ion-select>
+            <ion-option value="van">Van</ion-option>
+            <ion-option value="bus">Bus</ion-option>
+            <ion-option> Other:
+                <ion-input type="text"></ion-input>
+            </ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label>Number of passenger: </ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label>Bus required on: </ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label>Pick up location: </ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label>Destination: </ion-label>
+    </ion-item>
+    
+    
+
+    <button ion-button id="submit-btn">
+        Submit
+    </button>
+
+</ion-content>
