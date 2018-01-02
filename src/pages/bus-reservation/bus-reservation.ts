@@ -25,5 +25,4 @@ export class BusReservationPage {
   goToAddBusReservePage(){
     this.navCtrl.push(BusReservationAddPage,{})
   }
-
 }

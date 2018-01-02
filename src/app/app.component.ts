@@ -26,7 +26,7 @@ export class MyApp {
     this.pages = [
       { icon: 'map', title: 'Map', component: HomePage },
       { icon: 'time', title: 'Bus Schedule', component: BusSchedulePage },
-      { icon: 'volume-up', title: 'Announcement', component: AnnouncementPage },
+      { icon: 'alert', title: 'Announcement', component: AnnouncementPage },
       { icon: 'bus', title: 'Bus Reservation', component: BusReservationPage },
       { icon: 'create', title: 'Report', component: ReportPage }
     ];

@@ -19,7 +19,7 @@
 <ion-content padding>
     <ion-card *ngFor="let announce of allAnnouncement" (click) = goToAnnounceDetailPage(announce)>
         <ion-card-header color="primary" id="title">
-            <ion-icon name="volume-up"></ion-icon>
+            <ion-icon name="alert" color="danger"></ion-icon>
             {{announce.title}}
             <hr>
         </ion-card-header>

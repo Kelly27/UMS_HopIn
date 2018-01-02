@@ -30,7 +30,7 @@ export class BusReservationAddPage {
             buttons:[{
                 text: 'Yes',
                 handler: data => {
-                    this.navCtrl.push(BusReservationPage,{});
+                    this.navCtrl.pop();
                 }
             },
             {
