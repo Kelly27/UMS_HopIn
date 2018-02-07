@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Http } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 /**
  * Generated class for the BusSchedulePage page.
  *
@@ -14,13 +16,30 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class BusSchedulePage {
 
+    public busTest: string;
+    public task: any;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
+              public http: Http
              ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BusSchedulePage');
+
+    // let myObservable = Observable.create()
+    this.task = setInterval(() => {
+        this.getLocation()
+    }, 1000);
   }
 
+  getLocation(){
+      this.http.get('http://umshopin.com/umshopin_admin/api/bus/1/getTrackingLocation')
+      .map(response => response.json())
+      .subscribe(res => {
+          console.log(res);
+          this.busTest = JSON.stringify(res);
+      });
+  }
 }

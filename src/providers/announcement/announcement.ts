@@ -16,7 +16,7 @@ export class AnnouncementProvider {
   }
 
   getAnnounce(){
-    return this.http.get('https://umsbus2017.000webhostapp.com/announcement.json')
+    return this.http.get('http://umshopin.com/umshopin_admin/announcement/api')
       .map(response => response.json());
   }
 
