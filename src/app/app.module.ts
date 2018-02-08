@@ -19,6 +19,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
 import { Geolocation} from "@ionic-native/geolocation";
 
 import { AnnouncementProvider } from '../providers/announcement/announcement';
+import { BusLocationProvider } from '../providers/bus-location/bus-location';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { AnnouncementProvider } from '../providers/announcement/announcement';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AnnouncementProvider
+    AnnouncementProvider,
+    BusLocationProvider
   ]
 })
 export class AppModule {}

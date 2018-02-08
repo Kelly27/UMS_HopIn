@@ -28,9 +28,8 @@ export class BusSchedulePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad BusSchedulePage');
 
-    // let myObservable = Observable.create()
     this.task = setInterval(() => {
-        this.getLocation()
+        this.getLocation();
     }, 1000);
   }
 

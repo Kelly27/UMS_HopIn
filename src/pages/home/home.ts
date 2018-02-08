@@ -1,7 +1,7 @@
 //ionic native google map tutorial : https://codeburst.io/native-google-maps-and-geolocation-ionic-fe635a00249d
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, NgZone} from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
-
+import { BusLocationProvider } from '../../providers/bus-location/bus-location';
 import {
     GoogleMaps,
     GoogleMap,
@@ -11,6 +11,7 @@ import {
     MarkerOptions,
     Marker
 } from '@ionic-native/google-maps';
+// import { Observable } from 'rxjs/Observable';
 
 // import { Geolocation } from '@ionic-native/geolocation';
 
@@ -24,18 +25,20 @@ export class HomePage {
     private trafficFlag:boolean = false;
     testCheckboxOpen: boolean;
     testCheckboxResult = [true, false, false, false];
-    // public Lat: float;
-    // public Lng: float;
+    public allBuses = [];
+    public test:any;
 
     constructor(public navCtrl: NavController,
         public alertCtrl: AlertController,
         private googleMaps: GoogleMaps,
+        public busLocationProvider: BusLocationProvider,
+        public zone: NgZone
         // private _geoLoc: Geolocation
-    ) {
-
+        ) {
     }
 
     ionViewDidLoad() {
+        // this.busLocationProvider.getLocationService();
         this.loadMap();
     }
 
@@ -69,40 +72,50 @@ export class HomePage {
                 this.map.moveCamera(option);
             });
 
+            // let task = setInterval(() => {
+            // }, 1000);
+
             // Now you can use all methods safely.
             this.map.addMarker({
                 title: 'Ionic',
                 icon: { url: './assets/icon/bus.png',
-                        size: { width: 35, height: 35}
-                      },
+                size: { width: 35, height: 35}
+            },
                 animation: 'DROP',
                 position: {
-                    lat: 6.0333,
-                    lng: 116.1229
+                    lat: 6.111,
+                    lng: 110.4654
                 }
             })
             .then(marker => {
+                let interval = setInterval(() => {
+                    this.busLocationProvider.getLocationService();
+                    this.allBuses = this.busLocationProvider.allBuses
+                    marker.setPosition(this.allBuses);
+                    console.log('marker', this.allBuses);
+                },1000);
                 marker.on(GoogleMapsEvent.MARKER_CLICK)
                 .subscribe(() => {
                     alert('clicked');
                 });
             });
 
+
             //add polyline on map method
             var HND_AIR_PORT = {lat: 35.548852, lng: 139.784086};
-                var SFO_AIR_PORT = {lat: 37.615223, lng: -122.389979};
-                var HNL_AIR_PORT = {lat: 21.324513, lng: -157.925074};
-                var AIR_PORTS = [
-                  HND_AIR_PORT,
-                  HNL_AIR_PORT,
-                  SFO_AIR_PORT
-                ];
+            var SFO_AIR_PORT = {lat: 37.615223, lng: -122.389979};
+            var HNL_AIR_PORT = {lat: 21.324513, lng: -157.925074};
+            var AIR_PORTS = [
+            HND_AIR_PORT,
+            HNL_AIR_PORT,
+            SFO_AIR_PORT
+            ];
             this.map.addPolyline({
                 points: AIR_PORTS,
                 'color' : '#AA00FF',
                 'width': 10,
                 'geodesic': true
-              });
+            });
 
         });
     }
@@ -157,4 +170,11 @@ export class HomePage {
         });
         alert.present();
     }
+
+    // getBusLocation(){
+    //     this.busLocationProvider.getLocationService().subscribe(res => {
+    //         this.allBuses = res;
+    //     });
+
+    // }
 }
