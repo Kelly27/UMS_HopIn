@@ -166,7 +166,6 @@ export class MapComponent {
             icon: {url: './assets/icon/bus.png', size: {width: 35, height: 35}},
         });
         this.allMarkers.push(m);
-        console.log('add marker', this.allMarkers);
     }
 
     updateMarker(bus){
@@ -174,7 +173,8 @@ export class MapComponent {
             if(i +1 == bus.id){
                 let location = JSON.parse(bus.bus_location);
                 let track_status = bus.track_status
-                //if location is null and track_status === 'OFF', delete marker
+                //if location is null and track_status === 'OFF', delete marker,
+                //else update marker position
                 if(location == null && track_status){
                     this.allMarkers[i].then(marker => {
                         marker.remove();
@@ -197,7 +197,6 @@ export class MapComponent {
     getBuses(){
         this.busLocationProvider.getLocationService().subscribe((res) => {
             this.buses = res;
-            console.log('bus', this.buses);
         });
     }
 }
