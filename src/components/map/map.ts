@@ -164,7 +164,6 @@ export class MapComponent {
         let m = this.map.addMarker({
             position: JSON.parse(bus.bus_location),
             icon: {url: './assets/icon/bus.png', size: {width: 35, height: 35}},
-            animation: 'DROP'
         });
         this.allMarkers.push(m);
         console.log('add marker', this.allMarkers);
@@ -172,12 +171,22 @@ export class MapComponent {
 
     updateMarker(bus){
         for(var i = 0; i < this.allMarkers.length; i++){
-            console.log('marker index:', i + 1, 'bus id: ', bus.id);
             if(i +1 == bus.id){
-                this.allMarkers[i].then(marker =>{
-                    marker.setPosition(JSON.parse(bus.bus_location));
-                });
-                console.log('updated loc', bus.bus_location);
+                let location = JSON.parse(bus.bus_location);
+                let track_status = bus.track_status
+                //if location is null and track_status === 'OFF', delete marker
+                if(location == null && track_status){
+                    this.allMarkers[i].then(marker => {
+                        marker.remove();
+                    });
+                    this.allMarkers.splice(i, 1);
+                    console.log(this.allMarkers);
+                }
+                else{
+                    this.allMarkers[i].then(marker =>{
+                        marker.setPosition(JSON.parse(bus.bus_location));
+                    });
+                }
                 return;
             }
         }
