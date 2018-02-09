@@ -10,16 +10,13 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class BusLocationProvider {
-    public allBuses = [];
+    public allBuses = null;
     constructor(public http: Http) {
         console.log('Hello BusLocationProvider Provider');
     }
 
     getLocationService(){
-        this.http.get('http://umshopin.com/umshopin_admin/api/bus/1/getTrackingLocation')
-        .map(response => response.json())
-        .subscribe(res => {
-            this.allBuses = JSON.parse(res.bus_location);
-        });
+        return this.http.get('http://umshopin.com/umshopin_admin/api/bus/getBusTrackingData')
+        .map(response => response.json());
     }
 }

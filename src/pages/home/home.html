@@ -8,24 +8,5 @@
 </ion-header>
 
 <ion-content>
-    <div #map id="map" style="height: 100%">
-        <button ion-button color="light" id="traffic" (click)='trafficToggle()'><i class="material-icons">traffic</i></button>
-
-        <ion-card id="map-card">
-            <ion-card-header>
-                header
-            </ion-card-header>
-            <ion-card-content>
-                content
-            </ion-card-content>
-        </ion-card>
-
-    </div>
-
-
-    <ion-fab right bottom>
-        <button ion-fab (click)="showBusFilter()">
-            <ion-icon name="bus"></ion-icon>
-        </button>
-    </ion-fab>
+    <map></map>
 </ion-content>

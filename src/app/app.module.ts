@@ -21,6 +21,8 @@ import { Geolocation} from "@ionic-native/geolocation";
 import { AnnouncementProvider } from '../providers/announcement/announcement';
 import { BusLocationProvider } from '../providers/bus-location/bus-location';
 
+import { MapComponent } from '../components/map/map';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -30,7 +32,8 @@ import { BusLocationProvider } from '../providers/bus-location/bus-location';
     AnnouncementDetailPage,
     BusReservationPage,
     BusReservationAddPage,
-    ReportPage
+    ReportPage,
+    MapComponent,
   ],
   imports: [
     HttpModule,
@@ -46,7 +49,7 @@ import { BusLocationProvider } from '../providers/bus-location/bus-location';
     AnnouncementDetailPage,
     BusReservationPage,
     BusReservationAddPage,
-    ReportPage
+    ReportPage,
   ],
   providers: [
     GoogleMaps,

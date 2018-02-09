@@ -27,18 +27,10 @@ export class BusSchedulePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BusSchedulePage');
-
-    this.task = setInterval(() => {
-        this.getLocation();
-    }, 1000);
+    console.log(this.foo());
   }
 
-  getLocation(){
-      this.http.get('http://umshopin.com/umshopin_admin/api/bus/1/getTrackingLocation')
-      .map(response => response.json())
-      .subscribe(res => {
-          console.log(res);
-          this.busTest = JSON.stringify(res);
-      });
+  foo(){
+    return 'foo';
   }
 }
