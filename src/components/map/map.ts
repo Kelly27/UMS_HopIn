@@ -7,7 +7,8 @@ import {
     GoogleMapOptions,
     CameraPosition,
     MarkerOptions,
-    Marker
+    Marker,
+    Spherical
 } from '@ionic-native/google-maps';
 import { BusLocationProvider } from '../../providers/bus-location/bus-location';
 import { Observable } from 'rxjs/Observable';
@@ -17,52 +18,53 @@ import { Observable } from 'rxjs/Observable';
  * See https://angular.io/api/core/Component for more info on Angular
  * Components.
  */
-@Component({
-  selector: 'map',
-  templateUrl: 'map.html',
-})
-export class MapComponent {
+ @Component({
+     selector: 'map',
+     templateUrl: 'map.html',
+ })
+ export class MapComponent {
 
-    public map: GoogleMap;
-    @ViewChild('map') mapElement: ElementRef;
-    private trafficFlag:boolean = false;
-    private testCheckboxOpen: boolean;
-    private testCheckboxResult = [true, false, false, false];
-    public buses = new Array();
-    private allMarkers = new Array();
+     public map: GoogleMap;
+     @ViewChild('map') mapElement: ElementRef;
+     private trafficFlag:boolean = false;
+     private testCheckboxOpen: boolean;
+     private testCheckboxResult = [true, false, false, false];
+     public buses = new Array();
+     private allMarkers = new Array();
 
-    constructor(
-        public googleMaps: GoogleMaps,
-        public alertCtrl: AlertController,
-        public busLocationProvider: BusLocationProvider
-    ) {
-        console.log('Hello MapComponent Component');
-        this.getBuses();
-    }
+     constructor(
+         public googleMaps: GoogleMaps,
+         public alertCtrl: AlertController,
+         public busLocationProvider: BusLocationProvider,
+         public spherical: Spherical
+         ) {
+         console.log('Hello MapComponent Component');
+         this.getBuses();
+     }
 
-    ngOnInit(){
-        console.log('const', this.buses);
-        let myObservable = Observable.create(observer => {
-            setInterval(() => {
-                this.getBuses();
+     ngOnInit(){
+         console.log('const', this.buses);
+         let myObservable = Observable.create(observer => {
+             setInterval(() => {
+                 this.getBuses();
                 // bus markers
                 for(var i = 0; i < this.buses.length; i++){
                     this.updateMarker(this.buses[i]);
                 }
                 observer.next(this.buses);
             },2000);
-        });
+         });
 
-        myObservable.subscribe((data) => {
+         myObservable.subscribe((data) => {
             // var d = Object.keys(data[0]);
             // console.log('observe', data[0].bus_location);
         });
-        this.loadMap();
-    }
+         this.loadMap();
+     }
 
-    loadMap(){
-        let mapOptions: GoogleMapOptions = {
-            camera: {
+     loadMap(){
+         let mapOptions: GoogleMapOptions = {
+             camera: {
                 // target: {
                 //     lat: 5.978840,
                 //     lng: 116.07532
@@ -163,7 +165,7 @@ export class MapComponent {
     addMarker(bus){
         let m = this.map.addMarker({
             position: JSON.parse(bus.bus_location),
-            icon: {url: './assets/icon/bus.png', size: {width: 35, height: 35}},
+            icon: {url: './assets/icon/bus.png', size: {width: 35, height: 45}},
         });
         this.allMarkers.push(m);
     }
@@ -184,7 +186,14 @@ export class MapComponent {
                 }
                 else{
                     this.allMarkers[i].then(marker =>{
-                        marker.setPosition(JSON.parse(bus.bus_location));
+                        // var oldPosition =
+                        var newPosition = JSON.parse(bus.bus_location);
+                        // var heading = this.spherical.computeHeading(marker.getPosition(),JSON.parse(bus.bus_location));
+                        // console.log(heading);
+                        // marker.setRotation(heading);
+                        // marker.setPosition(newPosition);
+                        //this.spherical.interpolate(originalPosition, newPosition, fraction); fraction means how many percent the marker should go.
+                        marker.setPosition(this.spherical.interpolate(marker.getPosition(), newPosition, 0.2));
                     });
                 }
                 return;

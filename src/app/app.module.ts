@@ -15,7 +15,7 @@ import { ReportPage } from '../pages/report/report';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { GoogleMaps } from '@ionic-native/google-maps';
+import { GoogleMaps, Spherical } from '@ionic-native/google-maps';
 import { Geolocation} from "@ionic-native/geolocation";
 
 import { AnnouncementProvider } from '../providers/announcement/announcement';
@@ -58,7 +58,8 @@ import { MapComponent } from '../components/map/map';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AnnouncementProvider,
-    BusLocationProvider
+    BusLocationProvider,
+    Spherical
   ]
 })
 export class AppModule {}
