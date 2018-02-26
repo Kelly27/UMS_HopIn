@@ -48,17 +48,15 @@ import { Observable } from 'rxjs/Observable';
              setInterval(() => {
                  this.getBuses();
                 // bus markers
-                for(var i = 0; i < this.buses.length; i++){
-                    this.updateMarker(this.buses[i]);
-                }
                 observer.next(this.buses);
             },2000);
          });
 
          myObservable.subscribe((data) => {
-            // var d = Object.keys(data[0]);
-            // console.log('observe', data[0].bus_location);
-        });
+             for(var i = 0; i < this.buses.length; i++){
+                 this.updateMarker(this.buses[i]);
+             }
+         });
          this.loadMap();
      }
 
@@ -192,8 +190,10 @@ import { Observable } from 'rxjs/Observable';
                         // console.log(heading);
                         // marker.setRotation(heading);
                         // marker.setPosition(newPosition);
+                        // marker.setPosition(this.spherical.interpolate(marker.getPosition(), newPosition, this.fraction));
                         //this.spherical.interpolate(originalPosition, newPosition, fraction); fraction means how many percent the marker should go.
-                        marker.setPosition(this.spherical.interpolate(marker.getPosition(), newPosition, 0.2));
+                        
+                        marker.setPosition(this.spherical.interpolate(marker.getPosition(), newPosition, 1.0));
                     });
                 }
                 return;
@@ -206,6 +206,8 @@ import { Observable } from 'rxjs/Observable';
     getBuses(){
         this.busLocationProvider.getLocationService().subscribe((res) => {
             this.buses = res;
+        }, (err) => {
+            alert('something is wrong! ' + err);
         });
     }
 }
