@@ -12,6 +12,11 @@ import {
 } from '@ionic-native/google-maps';
 import { BusLocationProvider } from '../../providers/bus-location/bus-location';
 import { Observable } from 'rxjs/Observable';
+import { RouteProvider } from '../../providers/route/route';
+import { MapProvider } from '../../providers/map/map';
+import { RouteComponent } from '../route/route';
+
+// import * as SlidingMarker from "../../../node_modules/marker-animate-unobtrusive";
 /**
  * Generated class for the MapComponent component.
  *
@@ -27,18 +32,22 @@ import { Observable } from 'rxjs/Observable';
      public map: GoogleMap;
      @ViewChild('map') mapElement: ElementRef;
      private trafficFlag:boolean = false;
-     private testCheckboxOpen: boolean;
-     private testCheckboxResult = [true, false, false, false];
      public buses = new Array();
      private allMarkers = new Array();
+     public allRoutes = [];
+
+    public routeArr = [];
 
      constructor(
          public googleMaps: GoogleMaps,
          public alertCtrl: AlertController,
          public busLocationProvider: BusLocationProvider,
-         public spherical: Spherical
+         public spherical: Spherical,
+         public routeProvider: RouteProvider,
+         public mapProvider: MapProvider
          ) {
          console.log('Hello MapComponent Component');
+        this.getRoute();
          this.getBuses();
      }
 
@@ -48,7 +57,9 @@ import { Observable } from 'rxjs/Observable';
              setInterval(() => {
                  this.getBuses();
                 // bus markers
-                observer.next(this.buses);
+                if(this.buses){
+                    observer.next(this.buses);
+                }
             },2000);
          });
 
@@ -74,94 +85,34 @@ import { Observable } from 'rxjs/Observable';
         let element = this.mapElement.nativeElement;
         this.map = this.googleMaps.create(element, mapOptions);
 
+        this.mapProvider.setMap(this.map);
         // Wait the MAP_READY before using any methods.
-        this.map.one(GoogleMapsEvent.MAP_READY)
+        this.mapProvider.map.one(GoogleMapsEvent.MAP_READY)
         .then(() => {
             console.log('Map is ready!');
-            this.map.setMyLocationEnabled(true);
+            this.mapProvider.map.setMyLocationEnabled(true);
 
-            this.map.getMyLocation().then((location) => {
+            this.mapProvider.map.getMyLocation().then((location) => {
                 let Loc = location.latLng;
-                console.log('loc', Loc);
                 let option : CameraPosition <any> = {
                     target : Loc,
                     zoom : 15
                 }
-                this.map.moveCamera(option);
+                this.mapProvider.map.moveCamera(option);
             });
-
-            //add polyline on map method
-            var HND_AIR_PORT = {lat: 35.548852, lng: 139.784086};
-            var SFO_AIR_PORT = {lat: 37.615223, lng: -122.389979};
-            var HNL_AIR_PORT = {lat: 21.324513, lng: -157.925074};
-            var AIR_PORTS = [
-            HND_AIR_PORT,
-            HNL_AIR_PORT,
-            SFO_AIR_PORT
-            ];
-            this.map.addPolyline({
-                points: AIR_PORTS,
-                'color' : '#AA00FF',
-                'width': 10,
-                'geodesic': true
-            });
-
         });
+
     }
 
     trafficToggle(){
         console.log(this.trafficFlag);
         this.trafficFlag = !this.trafficFlag;
-        this.map.setTrafficEnabled(this.trafficFlag);
-    }
-
-    //alert for bus filter
-    showBusFilter(){
-        let alert = this.alertCtrl.create();
-        alert.setSubTitle('Choose bus/buses that you wish to see.');
-
-        alert.addInput({
-            type:'checkbox',
-            label: 'Bus 1',
-            value: 'value1',
-            checked: this.testCheckboxResult[0]
-        });
-
-        alert.addInput({
-            type:'checkbox',
-            label: 'Bus 2',
-            value: 'value2',
-            checked: this.testCheckboxResult[1]
-        });
-
-        alert.addInput({
-            type:'checkbox',
-            label: 'Bus 3',
-            value: 'value3',
-            checked: this.testCheckboxResult[2]
-        });
-
-        alert.addInput({
-            type:'checkbox',
-            label: 'Bus 4',
-            value: 'value4',
-            checked: this.testCheckboxResult[3]
-        });
-
-        alert.addButton('Cancel');
-        alert.addButton({
-            text: 'Okay',
-            handler: data => {
-                console.log('data: ', data);
-                this.testCheckboxOpen = false;
-                this.testCheckboxResult = data;
-            }
-        });
-        alert.present();
+        this.mapProvider.map.setTrafficEnabled(this.trafficFlag);
     }
 
     addMarker(bus){
-        let m = this.map.addMarker({
+        // var SlidingMarker = require('marker-animate-unobtrusive');
+        let m = this.mapProvider.map.addMarker({
             position: JSON.parse(bus.bus_location),
             icon: {url: './assets/icon/bus.png', size: {width: 35, height: 45}},
         });
@@ -191,8 +142,8 @@ import { Observable } from 'rxjs/Observable';
                         // marker.setRotation(heading);
                         // marker.setPosition(newPosition);
                         // marker.setPosition(this.spherical.interpolate(marker.getPosition(), newPosition, this.fraction));
+
                         //this.spherical.interpolate(originalPosition, newPosition, fraction); fraction means how many percent the marker should go.
-                        
                         marker.setPosition(this.spherical.interpolate(marker.getPosition(), newPosition, 1.0));
                     });
                 }
@@ -209,5 +160,15 @@ import { Observable } from 'rxjs/Observable';
         }, (err) => {
             alert('something is wrong! ' + err);
         });
+    }
+
+    getRoute(){
+        this.routeProvider.getRoutes()
+           .subscribe((res) => {
+               this.routeArr = res;
+               console.log('route',this.routeArr);
+           }, (err) => {
+               console.log('fail at getRoute()', err);
+           });
     }
 }

@@ -22,6 +22,9 @@ import { AnnouncementProvider } from '../providers/announcement/announcement';
 import { BusLocationProvider } from '../providers/bus-location/bus-location';
 
 import { MapComponent } from '../components/map/map';
+import { RouteComponent } from '../components/route/route';
+import { RouteProvider } from '../providers/route/route';
+import { MapProvider } from '../providers/map/map';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,7 @@ import { MapComponent } from '../components/map/map';
     BusReservationAddPage,
     ReportPage,
     MapComponent,
+    RouteComponent
   ],
   imports: [
     HttpModule,
@@ -59,7 +63,9 @@ import { MapComponent } from '../components/map/map';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AnnouncementProvider,
     BusLocationProvider,
-    Spherical
+    Spherical,
+    RouteProvider,
+    MapProvider
   ]
 })
 export class AppModule {}
