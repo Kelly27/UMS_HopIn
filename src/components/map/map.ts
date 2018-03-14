@@ -15,6 +15,7 @@ import { Observable } from 'rxjs/Observable';
 import { RouteProvider } from '../../providers/route/route';
 import { MapProvider } from '../../providers/map/map';
 import { RouteComponent } from '../route/route';
+// import { BusStopComponent } from '../bus-stop/bus-stop';
 
 // import * as SlidingMarker from "../../../node_modules/marker-animate-unobtrusive";
 /**
@@ -36,8 +37,6 @@ import { RouteComponent } from '../route/route';
      private allMarkers = new Array();
      public allRoutes = [];
 
-    public routeArr = [];
-
      constructor(
          public googleMaps: GoogleMaps,
          public alertCtrl: AlertController,
@@ -47,7 +46,6 @@ import { RouteComponent } from '../route/route';
          public mapProvider: MapProvider
          ) {
          console.log('Hello MapComponent Component');
-        this.getRoute();
          this.getBuses();
      }
 
@@ -64,9 +62,11 @@ import { RouteComponent } from '../route/route';
          });
 
          myObservable.subscribe((data) => {
-             for(var i = 0; i < this.buses.length; i++){
-                 this.updateMarker(this.buses[i]);
-             }
+             if(this.buses){
+                 for(var i = 0; i < this.buses.length; i++){
+                     this.updateMarker(this.buses[i]);
+                 }
+             };
          });
          this.loadMap();
      }
@@ -110,7 +110,7 @@ import { RouteComponent } from '../route/route';
         this.mapProvider.map.setTrafficEnabled(this.trafficFlag);
     }
 
-    addMarker(bus){
+    addBusMarker(bus){
         // var SlidingMarker = require('marker-animate-unobtrusive');
         let m = this.mapProvider.map.addMarker({
             position: JSON.parse(bus.bus_location),
@@ -135,14 +135,8 @@ import { RouteComponent } from '../route/route';
                 }
                 else{
                     this.allMarkers[i].then(marker =>{
-                        // var oldPosition =
                         var newPosition = JSON.parse(bus.bus_location);
-                        // var heading = this.spherical.computeHeading(marker.getPosition(),JSON.parse(bus.bus_location));
-                        // console.log(heading);
-                        // marker.setRotation(heading);
                         // marker.setPosition(newPosition);
-                        // marker.setPosition(this.spherical.interpolate(marker.getPosition(), newPosition, this.fraction));
-
                         //this.spherical.interpolate(originalPosition, newPosition, fraction); fraction means how many percent the marker should go.
                         marker.setPosition(this.spherical.interpolate(marker.getPosition(), newPosition, 1.0));
                     });
@@ -151,7 +145,7 @@ import { RouteComponent } from '../route/route';
             }
         }
         //add Marker
-        this.addMarker(bus);
+        this.addBusMarker(bus);
     }
 
     getBuses(){
@@ -160,15 +154,5 @@ import { RouteComponent } from '../route/route';
         }, (err) => {
             alert('something is wrong! ' + err);
         });
-    }
-
-    getRoute(){
-        this.routeProvider.getRoutes()
-           .subscribe((res) => {
-               this.routeArr = res;
-               console.log('route',this.routeArr);
-           }, (err) => {
-               console.log('fail at getRoute()', err);
-           });
     }
 }

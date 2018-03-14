@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouteProvider } from '../../providers/route/route';
+// import { BusStopProvider } from '../../providers/bus-stop/bus-stop';
 import { MapProvider } from '../../providers/map/map';
 import { Observable } from 'rxjs/Observable';
 import { AlertController } from 'ionic-angular';
@@ -23,8 +24,10 @@ export class RouteComponent {
     private testCheckboxOpen: boolean;
     public allPoly = [];
     public polyList = [];
+    public markerList = [];
 
     constructor(
+        // public busStopProvider: BusStopProvider,
         public routeProvider: RouteProvider,
         public mapProvider: MapProvider,
         public alertCtrl: AlertController
@@ -34,18 +37,10 @@ export class RouteComponent {
     }
 
     ngOnInit(){
-        //playground
-         let play = Observable.create(obs => {
-             setTimeout(() => {
-                this.routeProvider.setSelectedRoute([this.routeArr[0].id]); //show first route on map on app start up
-                this.showRoutes();
-             }, 2000);
-         });
-
-         play.subscribe((data) => {
-
-         });
-         //-------------------
+        setTimeout(() => {
+            this.routeProvider.setSelectedRoute([this.routeArr[0].id]); //show first route on map on app start up
+            this.showRoutes();
+         }, 2000);
     }
 
         //alert for bus filter
@@ -65,7 +60,7 @@ export class RouteComponent {
                 type:'checkbox',
                 label: this.routeArr[i].title,
                 value: this.routeArr[i].id,
-                // checked: isChecked
+                checked: isChecked
             });
         }
 
@@ -75,7 +70,6 @@ export class RouteComponent {
             handler: data => {
                 this.testCheckboxOpen = false;
                 this.removePolylines();
-                this.polyList = []; //initialize polyline list
                 this.routeProvider.setSelectedRoute(data);
                 this.showRoutes();
             }
@@ -92,26 +86,38 @@ export class RouteComponent {
            });
     }
 
+    //add markers and polyline of specific route to map
     showRoutes(){
         var poly;
+        var marker;
         let selectedID = this.routeProvider.selectedRoute;
         console.log('selected', selectedID);
         for(var i = 0; i < selectedID.length; i++){
             for(var j = 0; j < this.routeArr.length; j++){
                 if(selectedID[i] == this.routeArr[j].id){ //if match, then show polyline on map
                     let polyline = JSON.parse(this.routeArr[j].polyline);
-                    console.log('polyline', polyline);
+                    let color = this.routeArr[j].color;
+                    console.log('color', color);
                     polyline.forEach((line) =>{
                         poly = this.mapProvider.map.addPolyline({
                             points: line,
-                            'color': '#F90520',
-                            'width': 5,
-                            // 'visible': false,
-                            'clickable': true
+                            'color': color,
+                            'width': 3,
                         }).then( p =>{
                             this.polyList.push(p); // warning polyline data is too complicated
                         });
                     });
+
+                    let bus_stops = JSON.parse(this.routeArr[j].route_arr);
+                    bus_stops.forEach(stop => {
+                        marker = this.mapProvider.map.addMarker({
+                            position: stop.location,
+                            title: stop.name,
+                            icon: {url: './assets/icon/bus-stop.png', size: {width: 15, height: 15}},
+                        }).then(m => {
+                            this.markerList.push(m);
+                        });
+                    })
                 };
             };
         };
@@ -119,11 +125,14 @@ export class RouteComponent {
 
     removePolylines(){
         this.polyList.forEach(p => {
-            // polyline.then( p => {
-                p.remove();
-            // });
+            p.remove();
         });
-        console.log('polylist', this.polyList);
+        this.polyList = []; //initialize polyline list
+
+        this.markerList.forEach(m => {
+            m.remove();
+        });
+        this.markerList = []; //initialize marker list
     }
 
 }

@@ -20,11 +20,12 @@ import { Geolocation} from "@ionic-native/geolocation";
 
 import { AnnouncementProvider } from '../providers/announcement/announcement';
 import { BusLocationProvider } from '../providers/bus-location/bus-location';
+import { RouteProvider } from '../providers/route/route';
+import { MapProvider } from '../providers/map/map';
+import { BusStopProvider } from '../providers/bus-stop/bus-stop';
 
 import { MapComponent } from '../components/map/map';
 import { RouteComponent } from '../components/route/route';
-import { RouteProvider } from '../providers/route/route';
-import { MapProvider } from '../providers/map/map';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { MapProvider } from '../providers/map/map';
     BusReservationAddPage,
     ReportPage,
     MapComponent,
-    RouteComponent
+    RouteComponent,
   ],
   imports: [
     HttpModule,
@@ -65,7 +66,8 @@ import { MapProvider } from '../providers/map/map';
     BusLocationProvider,
     Spherical,
     RouteProvider,
-    MapProvider
+    MapProvider,
+    BusStopProvider
   ]
 })
 export class AppModule {}
