@@ -19,7 +19,7 @@ import { BusLocationProvider } from '../../providers/bus-location/bus-location';
      selector: 'route',
      templateUrl: 'route.html'
  })
-export class RouteComponent {
+ export class RouteComponent {
 
     //variables for bus stops marker and polylines
     public routeArr = [];
@@ -35,7 +35,6 @@ export class RouteComponent {
     public selectedRoute:any;
 
     public myObservable:any;
-    public obsListener:any;
     public myInterval:any;
 
     constructor(
@@ -45,10 +44,10 @@ export class RouteComponent {
         public toastCtrl: ToastController,
         public busLocationProvider: BusLocationProvider,
         public spherical: Spherical,
-    ) {
+        ) {
         console.log('Hello RouteComponent Component');
         this.getRoute();
-        this.getBuses();
+        // this.getBuses();
     }
 
     ngOnInit(){
@@ -60,20 +59,23 @@ export class RouteComponent {
                     if(this.buses){
                         observer.next(this.buses);
                     }
-                },2000);
+                },1500);
             });
 
-            this.obsListener = this.myObservable.subscribe((data) => {
-
+            this.myObservable.subscribe((data) => {
+                data.forEach(d => {
+                    this.showBusMarkerOnMap(d);
+                })
             });
+
+            setTimeout(() => {
+                this.routeProvider.setSelectedRoute([this.routeArr[0].id]); //show first route on map on app start up
+                console.log('this.buses', this.buses);
+                this.showRoutes();
+            }, 2000);
 
         });
 
-        setTimeout(() => {
-            this.routeProvider.setSelectedRoute([this.routeArr[0].id]); //show first route on map on app start up
-            console.log('this.buses', this.buses);
-            this.showRoutes();
-        }, 2000);
     }
 
     ngOnDestroy(){
@@ -117,11 +119,11 @@ export class RouteComponent {
 
     getRoute(){
         this.routeProvider.getRoutes()
-           .subscribe((res) => {
-               this.routeArr = res;
-           }, (err) => {
-               console.log('fail at getRoute()', err);
-           });
+        .subscribe((res) => {
+            this.routeArr = res;
+        }, (err) => {
+            console.log('fail at getRoute()', err);
+        });
     }
 
     //add markers and polyline of specific route to map
@@ -157,8 +159,6 @@ export class RouteComponent {
                             this.busStopMarkerList.push(m);
                         });
                     });
-                    //add bus marker
-                    this.generateBusMarkerOnMap(selectedID[i]);
                 };
             };
         };
@@ -201,15 +201,13 @@ export class RouteComponent {
         });
     }
 
-    generateBusMarkerOnMap(selectedRoute){
-            this.buses.forEach(bus => {
-                console.log('selectedR', selectedRoute);
-                console.log('bus', bus.route_id);
-                if(selectedRoute == bus.route_id){
-                    this.updateBusMarker(bus);
-                }
-            });
-
+    showBusMarkerOnMap(bus){
+        let selectedRoute = this.routeProvider.selectedRoute;
+        for( var i = 0; i < selectedRoute.length; i++){
+            if(selectedRoute[i] == bus.route_id){
+                this.updateBusMarker(bus);
+            }
+        };
     };
 
     addBusMarker(bus){
