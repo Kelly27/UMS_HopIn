@@ -32,8 +32,6 @@ import { RouteComponent } from '../route/route';
      public map: GoogleMap;
      @ViewChild('map') mapElement: ElementRef;
      private trafficFlag:boolean = false;
-     
-     public allRoutes = [];
 
      constructor(
          public googleMaps: GoogleMaps,

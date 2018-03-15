@@ -35,6 +35,8 @@ export class RouteComponent {
     public selectedRoute:any;
 
     public myObservable:any;
+    public obsListener:any;
+    public myInterval:any;
 
     constructor(
         public routeProvider: RouteProvider,
@@ -46,30 +48,40 @@ export class RouteComponent {
     ) {
         console.log('Hello RouteComponent Component');
         this.getRoute();
+        this.getBuses();
     }
 
     ngOnInit(){
+        this.mapProvider.map.one(GoogleMapsEvent.MAP_READY).then(()=>{
+            this.myObservable = Observable.create(observer => {
+                this.myInterval = setInterval(() => {
+                    this.getBuses();
+                    // bus markers
+                    if(this.buses){
+                        observer.next(this.buses);
+                    }
+                },2000);
+            });
+
+            this.obsListener = this.myObservable.subscribe((data) => {
+
+            });
+
+        });
+
         setTimeout(() => {
             this.routeProvider.setSelectedRoute([this.routeArr[0].id]); //show first route on map on app start up
+            console.log('this.buses', this.buses);
             this.showRoutes();
         }, 2000);
-
-        this.myObservable = Observable.create(observer => {
-            setInterval(() => {
-                this.getBuses();
-                // bus markers
-                if(this.buses){
-                    observer.next(this.buses);
-                }
-            },2000);
-        });
-        this.myObservable.subscribe((data) => {
-
-        });
-
     }
 
-        //alert for bus filter
+    ngOnDestroy(){
+        console.log('ngOnDestroy');
+        clearInterval(this.myInterval);
+    }
+
+    //alert for bus filter
     showBusFilter(){
         let isChecked: boolean;
         let alert = this.alertCtrl.create();
