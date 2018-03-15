@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { RouteProvider } from '../../providers/route/route';
 import { MapProvider } from '../../providers/map/map';
 import { Observable } from 'rxjs/Observable';
-import { AlertController } from 'ionic-angular';
+import { AlertController, ToastController  } from 'ionic-angular';
 import {
     GoogleMapsEvent,
     Spherical
@@ -35,12 +35,12 @@ export class RouteComponent {
     public selectedRoute:any;
 
     public myObservable:any;
-    public obsListener = [];
 
     constructor(
         public routeProvider: RouteProvider,
         public mapProvider: MapProvider,
         public alertCtrl: AlertController,
+        public toastCtrl: ToastController,
         public busLocationProvider: BusLocationProvider,
         public spherical: Spherical,
     ) {
@@ -63,6 +63,10 @@ export class RouteComponent {
                 }
             },2000);
         });
+        this.myObservable.subscribe((data) => {
+
+        });
+
     }
 
         //alert for bus filter
@@ -165,8 +169,6 @@ export class RouteComponent {
             });
         });
         this.allBusMarkers = [];
-
-        this.resetObs();
     }
 
     //========================================================================================
@@ -176,30 +178,27 @@ export class RouteComponent {
             this.buses = res;
         }, (err) => {
             // this.resetObs();
+            let toast = this.toastCtrl.create({
+                message: 'something is wrong! ' + err,
+                duration: 1500,
+                position: 'top'
+            });
+
+            toast.present();
             console.log('something is wrong! ' + err); //KIV: always internal server error
         });
     }
 
     generateBusMarkerOnMap(selectedRoute){
-        let o = this.myObservable.subscribe((data) => {
-            data.forEach(d => {
+            this.buses.forEach(bus => {
                 console.log('selectedR', selectedRoute);
-                console.log('d', d.route_id);
-                if(selectedRoute == d.route_id){
-                    this.updateBusMarker(d);
+                console.log('bus', bus.route_id);
+                if(selectedRoute == bus.route_id){
+                    this.updateBusMarker(bus);
                 }
             });
-        });
 
-        this.obsListener.push(o); //push observables into array
     };
-
-    resetObs(){
-        this.obsListener.forEach(o => {
-            o.unsubscribe();
-        });
-        this.obsListener = [];
-    }
 
     addBusMarker(bus){
         // var SlidingMarker = require('marker-animate-unobtrusive');
