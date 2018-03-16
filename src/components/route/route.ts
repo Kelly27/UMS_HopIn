@@ -1,4 +1,4 @@
-//this component deals with the route polyline and bus respectively to the route
+//this component deals with the route polyline and bus marker that is respectively to the route, 
 import { Component } from '@angular/core';
 import { RouteProvider } from '../../providers/route/route';
 import { MapProvider } from '../../providers/map/map';
@@ -47,7 +47,6 @@ import { BusLocationProvider } from '../../providers/bus-location/bus-location';
         ) {
         console.log('Hello RouteComponent Component');
         this.getRoute();
-        // this.getBuses();
     }
 
     ngOnInit(){
@@ -79,7 +78,7 @@ import { BusLocationProvider } from '../../providers/bus-location/bus-location';
     }
 
     ngOnDestroy(){
-        console.log('ngOnDestroy');
+        //stop making GET request
         clearInterval(this.myInterval);
     }
 
@@ -138,7 +137,6 @@ import { BusLocationProvider } from '../../providers/bus-location/bus-location';
                     //add route polyline
                     let polyline = JSON.parse(this.routeArr[j].polyline);
                     let color = this.routeArr[j].color;
-                    console.log('color', color);
                     polyline.forEach((line) =>{
                         poly = this.mapProvider.map.addPolyline({
                             points: line,
