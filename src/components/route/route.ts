@@ -64,7 +64,7 @@ import { BusLocationProvider } from '../../providers/bus-location/bus-location';
 
             this.myObservable.subscribe((data) => {
                 data.forEach(d => {
-                    this.showBusMarkerOnMap(d);
+                    this.showBusMarkerOnMap(d); //keep the bus marker update
                 })
             });
 
@@ -221,7 +221,6 @@ import { BusLocationProvider } from '../../providers/bus-location/bus-location';
     }
 
     updateBusMarker(bus){
-        console.log('update bus', bus);
         for(var i = 0; i < this.allBusMarkers.length; i++){
             if(i +1 == bus.id){
                 let location = JSON.parse(bus.bus_location);
