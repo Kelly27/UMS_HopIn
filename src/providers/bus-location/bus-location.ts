@@ -9,6 +9,7 @@ import {
     GoogleMaps,
     GoogleMapsEvent,
 } from '@ionic-native/google-maps';
+import { ToastController  } from 'ionic-angular';
 
 /*
   Generated class for the BusLocationProvider provider.
@@ -18,18 +19,33 @@ import {
 */
 @Injectable()
 export class BusLocationProvider {
-    public allBusMarkers = [];
+
+    public all_buses = [];
 
     constructor(
         public http: Http,
         public busScheduleProvider: BusScheduleProvider,
-        public routeProvider: RouteProvider
+        public routeProvider: RouteProvider,
+        public toastCtrl: ToastController,
      ) {
         console.log('Hello BusLocationProvider Provider');
     }
 
     getLocationService(){
-        return this.http.get('http://umshopin.com/umshopin_admin/api/bus/getBusTrackingData')
-        .map(response => response.json());
+        this.http.get('http://umshopin.com/umshopin_admin/api/bus/getBusTrackingData')
+        .map(response => response.json())
+        .subscribe((res) => {
+            this.all_buses = res;
+        }, (err) => {
+            // this.resetObs();
+            let toast = this.toastCtrl.create({
+                message: 'something is wrong! ' + err,
+                duration: 1500,
+                position: 'top'
+            });
+
+            toast.present();
+            console.log('something is wrong! ' + err); //KIV: always internal server error
+        });
     }
 }

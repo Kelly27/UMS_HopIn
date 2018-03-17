@@ -1,4 +1,9 @@
-<route></route>
 <div #map id="map" style="height: 100%">
     <button ion-button color="light" id="traffic" (click)='trafficToggle()'><i class="material-icons">traffic</i></button>
+
+    <ion-fab right bottom>
+        <button ion-fab (click)="showBusFilter()">
+            <ion-icon name="bus"></ion-icon>
+        </button>
+    </ion-fab>
 </div>

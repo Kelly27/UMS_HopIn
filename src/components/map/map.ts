@@ -16,6 +16,7 @@ import { BusLocationProvider } from '../../providers/bus-location/bus-location';
 import { RouteProvider } from '../../providers/route/route';
 import { MapProvider } from '../../providers/map/map';
 import { RouteComponent } from '../route/route';
+import { AlertController } from 'ionic-angular';
 // import { BusStopComponent } from '../bus-stop/bus-stop';
 
 // import * as SlidingMarker from "../../../node_modules/marker-animate-unobtrusive";
@@ -34,23 +35,29 @@ import { RouteComponent } from '../route/route';
     public map: GoogleMap;
     @ViewChild('map') mapElement: ElementRef;
     private trafficFlag:boolean = false;
-
-    public ETA:any;
-    public all_bus_markers = [];
+    public myObservable:any;
+    public myInterval:any;
 
     constructor(
         public googleMaps: GoogleMaps,
         public busScheduleProvider: BusScheduleProvider,
         public busLocationProvider: BusLocationProvider,
         public routeProvider: RouteProvider,
-        public mapProvider: MapProvider
+        public mapProvider: MapProvider,
+        public alertCtrl: AlertController
         ) {
         console.log('Hello MapComponent Component');
+        this.routeProvider.getRoutes();
     }
 
     ngOnInit(){
         this.loadMap();
-        // this.busLocationProvider.getETA();
+        this.loadRouteData();
+    }
+
+    ngOnDestroy(){
+        //stop making GET request
+        clearInterval(this.myInterval);
     }
 
     loadMap(){
@@ -91,5 +98,64 @@ import { RouteComponent } from '../route/route';
         console.log(this.trafficFlag);
         this.trafficFlag = !this.trafficFlag;
         this.mapProvider.map.setTrafficEnabled(this.trafficFlag);
+    }
+
+    loadRouteData(){
+        this.mapProvider.map.one(GoogleMapsEvent.MAP_READY).then(()=>{
+            this.myObservable = Observable.create(observer => {
+                this.myInterval = setInterval(() => {
+                    this.busLocationProvider.getLocationService();
+                    // bus markers
+                    if(this.busLocationProvider.all_buses){
+                        observer.next(this.busLocationProvider.all_buses);
+                    }
+                },1500);
+            });
+
+            this.myObservable.subscribe((data) => {
+                data.forEach(d => {
+                    this.routeProvider.showBusMarkerOnMap(d); //keep the bus marker update
+                })
+            });
+
+            setTimeout(() => {
+                this.routeProvider.setSelectedRoute([this.routeProvider.routeArr[0].id]); //show first route on map on app start up
+                this.routeProvider.showRoutes();
+            }, 2000);
+
+        });
+    }
+
+    showBusFilter(){
+        let isChecked: boolean;
+        let alert = this.alertCtrl.create();
+        alert.setSubTitle('Choose bus/buses that you wish to see.');
+
+        for(var i = 0; i < this.routeProvider.routeArr.length; i++){
+            if(i == 0){
+                isChecked = true;
+            }
+            else{
+                isChecked = false;
+            }
+            alert.addInput({
+                type:'checkbox',
+                label: this.routeProvider.routeArr[i].title,
+                value: this.routeProvider.routeArr[i].id,
+                checked: isChecked
+            });
+        }
+
+        alert.addButton('Cancel');
+        alert.addButton({
+            text: 'Okay',
+            handler: data => {
+                let testCheckboxOpen = false;
+                this.routeProvider.resetRoutes();
+                this.routeProvider.setSelectedRoute(data);
+                this.routeProvider.showRoutes();
+            }
+        });
+        alert.present();
     }
 }

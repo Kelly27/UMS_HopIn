@@ -23,10 +23,9 @@ import { BusLocationProvider } from '../providers/bus-location/bus-location';
 import { RouteProvider } from '../providers/route/route';
 import { MapProvider } from '../providers/map/map';
 import { BusStopProvider } from '../providers/bus-stop/bus-stop';
+import { BusScheduleProvider } from '../providers/bus-schedule/bus-schedule';
 
 import { MapComponent } from '../components/map/map';
-import { RouteComponent } from '../components/route/route';
-import { BusScheduleProvider } from '../providers/bus-schedule/bus-schedule';
 
 @NgModule({
   declarations: [
@@ -39,7 +38,6 @@ import { BusScheduleProvider } from '../providers/bus-schedule/bus-schedule';
     BusReservationAddPage,
     ReportPage,
     MapComponent,
-    RouteComponent,
   ],
   imports: [
     HttpModule,
