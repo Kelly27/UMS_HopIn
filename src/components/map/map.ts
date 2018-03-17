@@ -11,6 +11,7 @@ import {
     Spherical
 } from '@ionic-native/google-maps';
 import { Observable } from 'rxjs/Observable';
+import { BusScheduleProvider } from '../../providers/bus-schedule/bus-schedule';
 import { RouteProvider } from '../../providers/route/route';
 import { MapProvider } from '../../providers/map/map';
 import { RouteComponent } from '../route/route';
@@ -33,8 +34,11 @@ import { RouteComponent } from '../route/route';
      @ViewChild('map') mapElement: ElementRef;
      private trafficFlag:boolean = false;
 
+     public ETA:any;
+
      constructor(
          public googleMaps: GoogleMaps,
+         public busScheduleProvider: BusScheduleProvider,
          public routeProvider: RouteProvider,
          public mapProvider: MapProvider
          ) {
@@ -43,6 +47,7 @@ import { RouteComponent } from '../route/route';
 
      ngOnInit(){
          this.loadMap();
+         this.getETA();
      }
 
      loadMap(){
@@ -82,6 +87,14 @@ import { RouteComponent } from '../route/route';
         console.log(this.trafficFlag);
         this.trafficFlag = !this.trafficFlag;
         this.mapProvider.map.setTrafficEnabled(this.trafficFlag);
+    }
+
+    getETA(){
+        this.busScheduleProvider.getETA().subscribe(res => {
+            console.log('ETA', res);
+        }, err => {
+            console.log('ETA failed', err);
+        });
     }
 
 }

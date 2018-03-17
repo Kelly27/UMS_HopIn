@@ -213,7 +213,7 @@ import { BusLocationProvider } from '../../providers/bus-location/bus-location';
         let m = this.mapProvider.map.addMarker({
             position: JSON.parse(bus.bus_location),
             icon: {url: './assets/icon/bus.png', size: {width: 35, height: 45}},
-            subtitle: bus.bus_number
+            title: bus.bus_number
         });
         this.allBusMarkers.push(m);
     }
