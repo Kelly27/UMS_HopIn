@@ -12,6 +12,7 @@ import {
 } from '@ionic-native/google-maps';
 import { Observable } from 'rxjs/Observable';
 import { BusScheduleProvider } from '../../providers/bus-schedule/bus-schedule';
+import { BusLocationProvider } from '../../providers/bus-location/bus-location';
 import { RouteProvider } from '../../providers/route/route';
 import { MapProvider } from '../../providers/map/map';
 import { RouteComponent } from '../route/route';
@@ -25,34 +26,36 @@ import { RouteComponent } from '../route/route';
  * Components.
  */
  @Component({
-     selector: 'map',
-     templateUrl: 'map.html',
+    selector: 'map',
+    templateUrl: 'map.html',
  })
  export class MapComponent {
 
-     public map: GoogleMap;
-     @ViewChild('map') mapElement: ElementRef;
-     private trafficFlag:boolean = false;
+    public map: GoogleMap;
+    @ViewChild('map') mapElement: ElementRef;
+    private trafficFlag:boolean = false;
 
-     public ETA:any;
+    public ETA:any;
+    public all_bus_markers = [];
 
-     constructor(
-         public googleMaps: GoogleMaps,
-         public busScheduleProvider: BusScheduleProvider,
-         public routeProvider: RouteProvider,
-         public mapProvider: MapProvider
-         ) {
-         console.log('Hello MapComponent Component');
-     }
+    constructor(
+        public googleMaps: GoogleMaps,
+        public busScheduleProvider: BusScheduleProvider,
+        public busLocationProvider: BusLocationProvider,
+        public routeProvider: RouteProvider,
+        public mapProvider: MapProvider
+        ) {
+        console.log('Hello MapComponent Component');
+    }
 
-     ngOnInit(){
-         this.loadMap();
-         this.getETA();
-     }
+    ngOnInit(){
+        this.loadMap();
+        // this.busLocationProvider.getETA();
+    }
 
-     loadMap(){
-         let mapOptions: GoogleMapOptions = {
-             camera: {
+    loadMap(){
+        let mapOptions: GoogleMapOptions = {
+            camera: {
                 // target: {
                 //     lat: 5.978840,
                 //     lng: 116.07532
@@ -79,6 +82,7 @@ import { RouteComponent } from '../route/route';
                 }
                 this.mapProvider.map.moveCamera(option);
             });
+
         });
 
     }
@@ -88,13 +92,4 @@ import { RouteComponent } from '../route/route';
         this.trafficFlag = !this.trafficFlag;
         this.mapProvider.map.setTrafficEnabled(this.trafficFlag);
     }
-
-    getETA(){
-        this.busScheduleProvider.getETA().subscribe(res => {
-            console.log('ETA', res);
-        }, err => {
-            console.log('ETA failed', err);
-        });
-    }
-
 }

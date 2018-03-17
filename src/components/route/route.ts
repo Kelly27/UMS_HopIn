@@ -3,12 +3,14 @@ import { Component } from '@angular/core';
 import { RouteProvider } from '../../providers/route/route';
 import { MapProvider } from '../../providers/map/map';
 import { Observable } from 'rxjs/Observable';
-import { AlertController, ToastController  } from 'ionic-angular';
+import {
+ AlertController, ToastController  } from 'ionic-angular';
 import {
     GoogleMapsEvent,
-    Spherical
+    Spherical,
 } from '@ionic-native/google-maps';
 import { BusLocationProvider } from '../../providers/bus-location/bus-location';
+import { BusScheduleProvider } from '../../providers/bus-schedule/bus-schedule';
 /**
  * Generated class for the RouteComponent component.
  *
@@ -23,7 +25,7 @@ import { BusLocationProvider } from '../../providers/bus-location/bus-location';
 
     //variables for bus stops marker and polylines
     public routeArr = [];
-    private testCheckboxResult = [true, false, false, false];
+    // private testCheckboxResult = [true, false, false, false];
     private testCheckboxOpen: boolean;
     public allPoly = [];
     public polyList = [];
@@ -37,12 +39,16 @@ import { BusLocationProvider } from '../../providers/bus-location/bus-location';
     public myObservable:any;
     public myInterval:any;
 
+    public card = [];
+    public eta = '';
+
     constructor(
         public routeProvider: RouteProvider,
         public mapProvider: MapProvider,
         public alertCtrl: AlertController,
         public toastCtrl: ToastController,
         public busLocationProvider: BusLocationProvider,
+        public busScheduleProvider: BusScheduleProvider,
         public spherical: Spherical,
         ) {
         console.log('Hello RouteComponent Component');
@@ -69,7 +75,6 @@ import { BusLocationProvider } from '../../providers/bus-location/bus-location';
 
             setTimeout(() => {
                 this.routeProvider.setSelectedRoute([this.routeArr[0].id]); //show first route on map on app start up
-                console.log('this.buses', this.buses);
                 this.showRoutes();
             }, 2000);
 
@@ -147,6 +152,7 @@ import { BusLocationProvider } from '../../providers/bus-location/bus-location';
                         });
                     });
 
+                    //setup bus stop markers
                     let bus_stops = JSON.parse(this.routeArr[j].route_arr);
                     bus_stops.forEach(stop => {
                         marker = this.mapProvider.map.addMarker({
@@ -160,6 +166,7 @@ import { BusLocationProvider } from '../../providers/bus-location/bus-location';
                 };
             };
         };
+        // console.log('',this.busLocationProvider.show_ETA_card());
     }
 
     resetRoutes(){
@@ -179,6 +186,7 @@ import { BusLocationProvider } from '../../providers/bus-location/bus-location';
             });
         });
         this.allBusMarkers = [];
+        // this.busLocationProvider.setBusMarkers(this.allBusMarkers);
     }
 
     //========================================================================================
@@ -213,12 +221,13 @@ import { BusLocationProvider } from '../../providers/bus-location/bus-location';
         let m = this.mapProvider.map.addMarker({
             position: JSON.parse(bus.bus_location),
             icon: {url: './assets/icon/bus.png', size: {width: 35, height: 45}},
-            title: bus.bus_number
+            title: 'Bus Number' + bus.bus_number + '\n ETA: '
         });
         this.allBusMarkers.push(m);
     }
 
     updateBusMarker(bus){
+        var eta = '';
         for(var i = 0; i < this.allBusMarkers.length; i++){
             if(i +1 == bus.id){
                 let location = JSON.parse(bus.bus_location);
@@ -235,9 +244,18 @@ import { BusLocationProvider } from '../../providers/bus-location/bus-location';
                 else{
                     this.allBusMarkers[i].then(marker =>{
                         var newPosition = JSON.parse(bus.bus_location);
+                        if(bus.next_stop != null){
+                            let next_stop_data = JSON.parse(bus.next_stop);
+                            //google matrix api only accept string for origin and destination
+                            let current = newPosition.lat + ',' + newPosition.lng;
+                            let next_stop = next_stop_data.location.lat + ',' + next_stop_data.location.lng
+                            eta = this.getETA(current, next_stop);
+                        }
                         // marker.setPosition(newPosition);
                         //this.spherical.interpolate(originalPosition, newPosition, fraction); fraction means how many percent the marker should go.
                         marker.setPosition(this.spherical.interpolate(marker.getPosition(), newPosition, 1.0));
+                        // this.getETA(newPosition, next_stop.location);
+                        marker.setTitle('Bus Number: ' + bus.bus_number + '\n ETA: ' + eta);
                     });
                 }
                 return;
@@ -245,5 +263,14 @@ import { BusLocationProvider } from '../../providers/bus-location/bus-location';
         }
         //add Marker
         this.addBusMarker(bus);
+        // this.busLocationProvider.setBusMarkers(this.allBusMarkers);
+    }
+
+    getETA(origin, destination){
+        this.busScheduleProvider.getETA(origin, destination).subscribe(res => {
+            this.eta = res.rows[0].elements[0].duration.text;
+        });
+        console.log('myeta', this.eta);
+        return this.eta;
     }
 }

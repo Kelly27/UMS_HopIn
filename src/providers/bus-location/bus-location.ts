@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { BusScheduleProvider } from '../bus-schedule/bus-schedule';
+import { RouteProvider } from '../route/route';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+
+import {
+    GoogleMaps,
+    GoogleMapsEvent,
+} from '@ionic-native/google-maps';
 
 /*
   Generated class for the BusLocationProvider provider.
@@ -10,8 +18,13 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class BusLocationProvider {
-    public allBuses = null;
-    constructor(public http: Http) {
+    public allBusMarkers = [];
+
+    constructor(
+        public http: Http,
+        public busScheduleProvider: BusScheduleProvider,
+        public routeProvider: RouteProvider
+     ) {
         console.log('Hello BusLocationProvider Provider');
     }
 

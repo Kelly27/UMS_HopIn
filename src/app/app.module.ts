@@ -26,7 +26,6 @@ import { BusStopProvider } from '../providers/bus-stop/bus-stop';
 
 import { MapComponent } from '../components/map/map';
 import { RouteComponent } from '../components/route/route';
-import { ArrivalTimeComponent } from '../components/arrival-time/arrival-time';
 import { BusScheduleProvider } from '../providers/bus-schedule/bus-schedule';
 
 @NgModule({
@@ -41,7 +40,6 @@ import { BusScheduleProvider } from '../providers/bus-schedule/bus-schedule';
     ReportPage,
     MapComponent,
     RouteComponent,
-    ArrivalTimeComponent
   ],
   imports: [
     HttpModule,

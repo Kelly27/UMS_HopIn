@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { MapComponent } from './map/map';
 import { RouteComponent } from './route/route';
-import { ArrivalTimeComponent } from './arrival-time/arrival-time';
+
 @NgModule({
 	declarations: [MapComponent,
-    RouteComponent,
-    ArrivalTimeComponent],
+    RouteComponent],
 	imports: [],
 	exports: [MapComponent,
-    RouteComponent,
-    ArrivalTimeComponent]
+    RouteComponent]
 })
 export class ComponentsModule {}
