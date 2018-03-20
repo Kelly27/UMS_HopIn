@@ -15,7 +15,6 @@ import { BusScheduleProvider } from '../../providers/bus-schedule/bus-schedule';
 import { BusLocationProvider } from '../../providers/bus-location/bus-location';
 import { RouteProvider } from '../../providers/route/route';
 import { MapProvider } from '../../providers/map/map';
-import { RouteComponent } from '../route/route';
 import { AlertController } from 'ionic-angular';
 // import { BusStopComponent } from '../bus-stop/bus-stop';
 

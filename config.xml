@@ -3,7 +3,7 @@
     <name>MyApp</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content original-src="index.html" src="http://192.168.0.14:8101" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -84,8 +84,6 @@
     <allow-navigation href="http://192.168.0.15:8101" />
     <allow-navigation href="http://192.168.0.197:8100" />
     <allow-navigation href="http://192.168.0.197:8101" />
-    <allow-navigation href="http://192.168.0.14:8101" />
-    <allow-navigation href="http://192.168.0.14:8100" />
     <engine name="android" spec="~6.3.0" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.1" />
@@ -97,4 +95,6 @@
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyDajWfG0HuUqC6eCCJhJiFL5JRxGmhli2E" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyA5VTmQsgUBAAyfsstX7mnqds-czvX6Cd8" />
     </plugin>
+    <allow-navigation href="http://192.168.0.14:8101" />
+    <allow-navigation href="http://192.168.0.14:8100" />
 </widget>

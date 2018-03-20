@@ -124,7 +124,7 @@ export class RouteProvider {
         let m = this.mapProvider.map.addMarker({
             position: JSON.parse(bus.bus_location),
             icon: {url: './assets/icon/bus.png', size: {width: 35, height: 45}},
-            title: 'Bus Number' + bus.bus_number + '\n ETA: '
+            title: 'Bus Number: ' + bus.bus_number + '\n Next Stop: '+ '\n ETA: '
         });
         this.allBusMarkers.push(m);
     }
@@ -156,7 +156,7 @@ export class RouteProvider {
                         //this.spherical.interpolate(originalPosition, newPosition, fraction); fraction means how many percent the marker should go.
                         marker.setPosition(this.spherical.interpolate(marker.getPosition(), newPosition, 1.0));
                         // this.getETA(newPosition, next_stop.location);
-                        marker.setTitle('Bus Number: ' + bus.bus_number + '\n ETA: ' + eta);
+                        marker.setTitle('Bus Number: ' + bus.bus_number + '\n Next Stop: ' + next_stop_data.name +'\n ETA: ' + eta);
                     });
                 }
                 return;
