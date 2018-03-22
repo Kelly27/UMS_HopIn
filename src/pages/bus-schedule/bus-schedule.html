@@ -1,21 +1,62 @@
-<!--
-  Generated template for the BusSchedulePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
-  <ion-navbar color="primary">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Bus Scheduled</ion-title>
-  </ion-navbar>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+        </button>
 
+        <ion-title>Bus Scheduled</ion-title>
+        <!-- 
+        <ion-buttons end>
+            <button ion-button icon-only><ion-icon name="bus"></ion-icon></button>
+        </ion-buttons> -->
+    </ion-navbar>
+    
 </ion-header>
 
 
 <ion-content padding>
-    <p>Location: {{busTest}}</p>
+
+    <div text-center>
+        <ion-title text-center>Route: {{route}}</ion-title>
+        <button ion-button round small class="chg-btn">CHANGE</button>
+    </div>
+    
+    <ion-card>
+        <ion-card-header text-center>Bus Number: <span id="bus_no">11</span></ion-card-header>
+
+        <ion-card-content>
+            <section class="timeline">
+                <ul>
+                    <li>
+                        <ion-grid class='igrid'>
+                            <ion-row>
+                                <ion-col class="eta">
+                                    <div>6 mins</div>
+                                </ion-col>
+                                <ion-col>
+                                    <div>DKP Baru</div>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </li>
+                </ul>
+                <ul *ngFor="let stop of stops">
+                    <li>
+                        <ion-grid class='igrid'>
+                            <ion-row>
+                                <ion-col class="eta">
+                                    <!-- <div>6 mins</div> -->
+                                </ion-col>
+                                <ion-col>
+                                    <div>{{stop}}</div>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </li>
+                </ul>
+            </section>
+        </ion-card-content>
+    </ion-card>
+
 </ion-content>

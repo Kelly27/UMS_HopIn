@@ -1,3 +1,77 @@
 page-bus-schedule {
 
+    ion-card{
+        background-color: #fff;
+    }
+
+    #bus_no{
+        padding: 5px;
+        border-radius: 50%;
+        background-color: #458DEC;
+        color: white;
+        font-weight: 500;
+    }
+
+    .chg-btn{
+        background-color: #C4C4C4;
+        font-size: 11px;
+        color: #0874bb;
+        width: 75px;
+        font-weight: bold;
+    }
+
+    .timeline{
+        ul{
+            padding: 0px;
+            li{
+                list-style-type: none !important;
+                position: relative !important;
+                width: 3px !important;
+                margin-top: 0 !important;
+                margin-left: 80px !important;
+                // padding-top: 15px !important;
+                background-color: #00137F !important;
+                .igrid{
+                    width: 300px;
+                    position: relative;
+                    bottom: 28px;
+                    right: 75px
+                }
+                .eta{
+                    max-width: 86px;
+                    div{
+                        max-width: 60px;
+                        height: 15px;
+                        overflow: hidden;
+                    }
+                }
+                &:after{
+                    content: '';
+                    position: absolute;
+                    left: 50%;
+                    top: -17px;
+                    transform: translateX(-50%);
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    background: #00137F;
+                }
+            }
+            &:first-child{
+                li{
+                    &:after{
+                        background: #56A85F;
+                    }
+                }
+            }
+            &:last-child{
+                li{
+                    height: 0px;
+                    &:after{
+                        background: #C7374EFF;
+                    }
+                }
+            }
+        }
+    }
 }

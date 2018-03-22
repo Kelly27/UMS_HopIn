@@ -11,26 +11,25 @@ import { Observable } from 'rxjs/Observable';
 
 @IonicPage()
 @Component({
-  selector: 'page-bus-schedule',
-  templateUrl: 'bus-schedule.html',
+    selector: 'page-bus-schedule',
+    templateUrl: 'bus-schedule.html',
 })
 export class BusSchedulePage {
 
-    public busTest: string;
-    public task: any;
+    public route:string = 'Basic Campus';
+    public stops = ['Kolej Kediaman E', 'TM/TF', 'FKJ', 'PPIB', 'Dewan Resital', 'IPB', 'IPMB/Simpang Odec', 'Canselori'];
 
-  constructor(public navCtrl: NavController, 
-              public navParams: NavParams,
-              public http: Http
-             ) {
-  }
+    constructor(
+        public navCtrl: NavController, 
+        public navParams: NavParams,
+        public http: Http
+    ) {
+    }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad BusSchedulePage');
-    console.log(this.foo());
-  }
+    ionViewDidLoad() {
+        console.log('ionViewDidLoad BusSchedulePage');
+    }
 
-  foo(){
-    return 'foo';
-  }
+    
+
 }
