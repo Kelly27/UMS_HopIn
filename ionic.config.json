@@ -1,13 +1,14 @@
 {
   "name": "UMS_HopIn",
-  "app_id": "",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
   },
   "proxies": [
-  {
+    {
       "path": "/api",
       "proxyUrl": "http://localhost:3000/"
-  }]
+    }
+  ],
+  "app_id": "b89efdd2"
 }
