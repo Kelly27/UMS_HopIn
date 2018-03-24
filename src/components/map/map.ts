@@ -112,13 +112,23 @@ import { AlertController } from 'ionic-angular';
             });
 
             this.myObservable.subscribe((data) => {
+                console.log('map',data);
                 data.forEach(d => {
-                    this.routeProvider.showBusMarkerOnMap(d); //keep the bus marker update
+                    if(d.bus_location){
+                        this.routeProvider.showBusMarkerOnMap(d); //keep the bus marker update
+                    }
                 })
             });
 
             setTimeout(() => {
-                this.routeProvider.setSelectedRoute([this.routeProvider.routeArr[0].id]); //show first route on map on app start up
+                try{
+                    let first_route = this.routeProvider.routeArr[0].id
+                    this.routeProvider.setSelectedRoute(first_route); //show first route on map on app start up
+                }
+                catch(e){
+                    alert('Ooops! Something has gone wrong!');
+                    window.location.reload();
+                }
                 this.routeProvider.showRoutes();
             }, 2000);
 

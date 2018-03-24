@@ -23,19 +23,19 @@ page-bus-schedule {
     .timeline{
         ul{
             padding: 0px;
-            li{
+            .timeline-item{
                 list-style-type: none !important;
                 position: relative !important;
                 width: 3px !important;
                 margin-top: 0 !important;
-                margin-left: 80px !important;
+                margin-left: 50px !important;
                 // padding-top: 15px !important;
                 background-color: #00137F !important;
-                .igrid{
+                .stops{
                     width: 300px;
                     position: relative;
-                    bottom: 28px;
-                    right: 75px
+                    bottom: 16px;
+                    left: 20px;
                 }
                 .eta{
                     max-width: 86px;
@@ -58,14 +58,14 @@ page-bus-schedule {
                 }
             }
             &:first-child{
-                li{
+                .timeline-item{
                     &:after{
                         background: #56A85F;
                     }
                 }
             }
             &:last-child{
-                li{
+                .timeline-item{
                     height: 0px;
                     &:after{
                         background: #C7374EFF;

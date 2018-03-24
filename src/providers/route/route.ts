@@ -29,13 +29,13 @@ export class RouteProvider {
     }
 
     public selectedRoute = [];
+
     public routeArr = [];
     public polyList = [];
     public busStopMarkerList = [];
     public allBusMarkers = [];
-
     public eta = '';
-    
+
     getRoutes(){
         this.http.get('http://umshopin.com/umshopin_admin/api/route/getRoute')
             .map(response => response.json())
@@ -132,7 +132,7 @@ export class RouteProvider {
     updateBusMarker(bus){
         var eta = '';
         for(var i = 0; i < this.allBusMarkers.length; i++){
-            if(i +1 == bus.id){
+            if(i + 1 == bus.id){
                 let location = JSON.parse(bus.bus_location);
                 let track_status = bus.track_status
                 //if location is null and track_status === 'OFF', delete marker,

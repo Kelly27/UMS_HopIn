@@ -18,45 +18,31 @@
 <ion-content padding>
 
     <div text-center>
-        <ion-title text-center>Route: {{route}}</ion-title>
-        <button ion-button round small class="chg-btn">CHANGE</button>
+        <ion-title text-center>Route:  {{selected_route.title}}</ion-title>
+        <button ion-button round small class="chg-btn" (click)="chooseRoute()">CHANGE</button>
     </div>
-    
+
+<!--     <ion-card *ngIf="relevant_bus.length == 0">
+        <ion-card-content color="danger">Sorry, currently there are no bus servicing this route.</ion-card-content>
+    </ion-card> -->
     <ion-card>
-        <ion-card-header text-center>Bus Number: <span id="bus_no">11</span></ion-card-header>
+        <!-- <ion-card-header text-center>Bus Number: <span id="bus_no">{{bus.bus_number}}</span></ion-card-header> -->
 
         <ion-card-content>
             <section class="timeline">
-                <ul>
-                    <li>
-                        <ion-grid class='igrid'>
-                            <ion-row>
-                                <ion-col class="eta">
-                                    <div>6 mins</div>
-                                </ion-col>
-                                <ion-col>
-                                    <div>DKP Baru</div>
-                                </ion-col>
-                            </ion-row>
-                        </ion-grid>
-                    </li>
-                </ul>
                 <ul *ngFor="let stop of stops">
-                    <li>
-                        <ion-grid class='igrid'>
-                            <ion-row>
-                                <ion-col class="eta">
-                                    <!-- <div>6 mins</div> -->
-                                </ion-col>
-                                <ion-col>
-                                    <div>{{stop}}</div>
-                                </ion-col>
-                            </ion-row>
-                        </ion-grid>
+                    <li class="timeline-item">
+                        <div class="stops">{{stop.name}}
+                            <ul *ngFor = 'let bus of stop.buses'>
+                                <li>{{bus.bus_number}}</li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
             </section>
         </ion-card-content>
     </ion-card>
+    <!-- <div *ngFor="let bus of relevant_bus">
+    </div> -->
 
 </ion-content>
