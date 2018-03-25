@@ -26,6 +26,7 @@ import { BusStopProvider } from '../providers/bus-stop/bus-stop';
 import { BusScheduleProvider } from '../providers/bus-schedule/bus-schedule';
 
 import { MapComponent } from '../components/map/map';
+import { ReportsProvider } from '../providers/reports/reports';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { MapComponent } from '../components/map/map';
     RouteProvider,
     MapProvider,
     BusStopProvider,
-    BusScheduleProvider
+    BusScheduleProvider,
+    ReportsProvider
   ]
 })
 export class AppModule {}

@@ -5,4 +5,19 @@ page-report {
     .text-wrap{
         white-space: initial;
     }
+    #form-err{
+        color: white;
+        background-color: #ad1d1d;
+        padding: 5px;
+    }
+    #title-css{
+        color: black;
+        margin: 20px auto;
+    }
+    #custom-label{
+        margin: 0;
+        color: white;
+        background-color: #238eca;
+        padding: 10px;
+    }
 }

@@ -11,22 +11,26 @@
 
 
 <ion-content padding>
-    <p>What would you like to report about?</p>
     <form [formGroup]="reportForm" (ngSubmit)="logForm()">
-        <ion-list radio-group formControlName="issue">
-            <ion-item *ngFor = 'let issue of issues'>
-                <ion-radio item-left value="{{issue.value}}" (ionSelect) = "show_textarea(false)" ></ion-radio>
-                <ion-label class="text-wrap">{{issue.name}}</ion-label>
+        <ion-title text-center id="title-css">What would you like to report about?</ion-title>
+        <ion-list radio-group formControlName="subject">
+            <ion-label id="custom-label" text-center>Subject </ion-label>
+            <div *ngIf="show_subject_err" id="form-err">Please select an issue.</div>
+            <ion-item *ngFor = 'let subject of subjects'>
+                <ion-radio item-left value="{{subject.value}}"></ion-radio>
+                <ion-label class="text-wrap">{{subject.name}}</ion-label>
             </ion-item>
             <ion-item>
-                <ion-radio item-left value="other" (ionSelect) = "show_textarea(true)"></ion-radio>
+                <ion-radio item-left value="other"></ion-radio>
                 <ion-label>Other</ion-label>
             </ion-item>
-            <ion-item *ngIf = "other_hidden == true">
-                <ion-label stacked>Other: </ion-label>
-                <ion-textarea rows="5" formControlName = "other_issue"></ion-textarea>
-            </ion-item>
         </ion-list>
+        
+        <ion-label id="custom-label" text-center>More Details: </ion-label>
+        <div *ngIf="show_content_err" id="form-err">Please give more details.</div>
+        <ion-item >
+            <ion-textarea rows="5" formControlName = "content"></ion-textarea>
+        </ion-item>
         <button ion-button id="submit-btn">
             Submit
         </button>
