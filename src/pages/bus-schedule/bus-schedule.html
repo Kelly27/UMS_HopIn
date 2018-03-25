@@ -34,7 +34,7 @@
                     <li class="timeline-item">
                         <div class="stops">{{stop.name}}
                             <ul *ngFor = 'let bus of stop.buses'>
-                                <li>{{bus.bus_number}}</li>
+                                <li class="bus-list"><span class="bus_no">{{bus.bus_number}}</span>, {{bus.eta}}</li>
                             </ul>
                         </div>
                     </li>

@@ -4,9 +4,9 @@ page-bus-schedule {
         background-color: #fff;
     }
 
-    #bus_no{
-        padding: 5px;
-        border-radius: 50%;
+    .bus_no{
+        padding: 3px 10px;
+        border-radius: 20%;
         background-color: #458DEC;
         color: white;
         font-weight: 500;
@@ -73,5 +73,10 @@ page-bus-schedule {
                 }
             }
         }
+    }
+
+    .bus-list{
+        margin-top: 5px;
+        list-style-type: none;
     }
 }

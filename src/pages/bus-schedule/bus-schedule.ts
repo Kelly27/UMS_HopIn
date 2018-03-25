@@ -42,7 +42,7 @@ export class BusSchedulePage {
 
     ionViewDidLoad() {
         console.log('ionViewDidLoad BusSchedulePage');
-        this.presentLoading();
+        this.scheduleProvider.presentLoading(2000);
         //wait for get request to finish...
         setTimeout(() => {
             this.allBuses = this.busLocationProvider.all_buses;
@@ -93,13 +93,14 @@ export class BusSchedulePage {
         this.scheduleProvider.getRelevantBus(data);
         setTimeout(()=>{
             this.relevant_bus = this.scheduleProvider.relevantBusInfo;
-            this.stops = this.list_stops(this.selected_route);
+            setInterval(()=>{
+                this.stops = this.list_stops(this.selected_route);
+            }, 2000);
             console.log(this.stops);
         },1000);
     }
 
     list_stops(route){
-        console.log('route', route);
         var buses = [];
         var data = [];
         var temp;
@@ -123,19 +124,19 @@ export class BusSchedulePage {
             //init buses array
             buses = [];
         };
-        console.log('data', data);
+        // console.log('data', data);
         return data;
     }
 
-    presentLoading(){
-        let loading = this.loadCtrl.create({
-            content: 'Please wait...'
-        });
+    // presentLoading(){
+    //     let loading = this.loadCtrl.create({
+    //         content: 'Please wait...'
+    //     });
 
-        loading.present();
+    //     loading.present();
 
-        setTimeout(() => {
-            loading.dismiss();
-        }, 2000);
-    }
+    //     setTimeout(() => {
+    //         loading.dismiss();
+    //     }, 2000);
+    // }
 }
