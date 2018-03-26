@@ -6,10 +6,31 @@ page-bus-reservation-add {
         color: #fff;
         border-top: 1px solid rgba(0, 0, 0, 0.5);
     }
+
+    ion-title{
+        background-color: #0874bb;
+        padding: 10px;
+        &>*{
+            color: #fff !important;
+        }
+    }
+
+    .div_item{
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
     #submit-btn{
         float:right;
     }
     .item-md{
         padding-right: 16px;
+    }
+    #datePick{
+        border-bottom: 1.5px solid rgba(153,153,153,0.5) !important;
+        color: #0874bb;
+    }
+
+    input{
+        border-bottom: 1.5px solid rgba(153,153,153,0.5) !important;
     }
 }

@@ -36,7 +36,7 @@ export class ReportPage {
         this.reportForm = this.formBuilder.group({
             subject: ['', Validators.compose([Validators.required])],
             content: ['', Validators.compose([Validators.required])]
-        })
+        });
     }
 
     ionViewDidLoad() {

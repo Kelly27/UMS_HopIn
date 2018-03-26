@@ -15,58 +15,70 @@
 </ion-header>
 
 
-<ion-content padding>
-    <h3>Applicant's Information</h3>
-    <ion-item>
-        <ion-label stacked>Name:</ion-label>
-        <ion-input type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-label stacked>Staff Number:</ion-label>
-        <ion-input type="text"></ion-input>
-    </ion-item>
-     <ion-item>
-        <ion-label stacked>Faculty / Center / Institute / Unit / Club / Department:</ion-label>
-        <ion-input type="text"></ion-input>
-    </ion-item>
-    <ion-item style="padding-bottom: 15px;">
-        <ion-label stacked>Contact Number:</ion-label>
-        <ion-input type="text"></ion-input>
-    </ion-item>
+<ion-content [style.opacity]="isModal ? 0 : 1" padding>
+    <form [formGroup]="addForm">
+        <ion-card>
+            <ion-title text-center>Applicant's Information</ion-title>
+            <ion-item>
+                <ion-label stacked>Name:</ion-label>
+                <ion-input type="text" formControlName="applicant_name"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>Staff Number:</ion-label>
+                <ion-input type="text" formControlName="staff_no"></ion-input>
+            </ion-item>
+             <ion-item>
+                <ion-label stacked>Faculty / Center / Institute / Unit / Club / Department:</ion-label>
+                <ion-input type="text" formControlName="faculty"></ion-input>
+            </ion-item>
+            <ion-item style="padding-bottom: 15px;">
+                <ion-label stacked>Contact Number:</ion-label>
+                <ion-input type="text" formControlName="contact_no"></ion-input>
+            </ion-item>
+        </ion-card>
+        
+        <ion-card>
+            <ion-title text-center>Bus Reservation Details</ion-title>
+            <ion-item>
+                <ion-label stacked>Activity / Event Description:</ion-label>
+                <ion-input type="text" formControlName="event_desc"></ion-input>
+            </ion-item>
 
-    <h3>Bus Reservation Details</h3>
-    <ion-item>
-        <ion-label stacked>Activity / Event Description:</ion-label>
-        <ion-input type="text"></ion-input>
-    </ion-item>
+            <ion-item>
+                <ion-label>Type of vehicle:</ion-label>
+                <ion-select formControlName="vehicle_type">
+                    <ion-option value="van">Van</ion-option>
+                    <ion-option value="bus">Bus</ion-option>
+                    <ion-option> Other:
+                        <ion-input type="text"></ion-input>
+                    </ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label>Number of passenger: </ion-label>
+            </ion-item>
 
-    <ion-item>
-        <ion-label>Type of vehicle:</ion-label>
-        <ion-select>
-            <ion-option value="van">Van</ion-option>
-            <ion-option value="bus">Bus</ion-option>
-            <ion-option> Other:
-                <ion-input type="text"></ion-input>
-            </ion-option>
-        </ion-select>
-    </ion-item>
-    <ion-item>
-        <ion-label>Number of passenger: </ion-label>
-    </ion-item>
-    <ion-item>
-        <ion-label>Bus required on: </ion-label>
-    </ion-item>
-    <ion-item>
-        <ion-label>Pick up location: </ion-label>
-    </ion-item>
-    <ion-item>
-        <ion-label>Destination: </ion-label>
-    </ion-item>
-    
-    
+            <ion-card-content>
+                <div class="div_item">Bus required on:
+                    <span ion-datepicker  [(value)]="localDate" [min]="localDate" clear class="ScheduleDate">
+                        <span id="datePick">{{localDate | date}} <ion-icon name="clipboard" item-left ></ion-icon> </span>
+                    </span>
+                </div>
 
-    <button ion-button id="submit-btn">
-        Submit
-    </button>
+                <div class="div_item">Pick up location: 
+                    <button ion-button (click)="openModal()">Open Modal</button>
+                </div>
+
+                <div class="div_item">Destination:
+                </div>
+            </ion-card-content>
+            
+        </ion-card>
+
+        <button ion-button id="submit-btn">
+            Submit
+        </button>
+
+    </form>
 
 </ion-content>
