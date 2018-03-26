@@ -80,7 +80,7 @@ export class ReportPage {
             let data = {
                 subject: this.reportForm.value.subject,
                 content: this.reportForm.value.content,
-                type: 'user'
+                type: 'USER'
             }
             console.log(data);
             this.reportsProv.storeReport(data);
