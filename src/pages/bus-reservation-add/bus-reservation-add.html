@@ -16,23 +16,23 @@
 
 
 <ion-content [style.opacity]="isModal ? 0 : 1" padding>
-    <form [formGroup]="addForm">
+    <form [formGroup]="addForm" (ngSubmit)="addReservation()">
         <ion-card>
             <ion-title text-center>Applicant's Information</ion-title>
             <ion-item>
-                <ion-label stacked>Name:</ion-label>
+                <ion-label floating>Name:</ion-label>
                 <ion-input type="text" formControlName="applicant_name"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label stacked>Staff Number:</ion-label>
+                <ion-label floating>Staff Number:</ion-label>
                 <ion-input type="text" formControlName="staff_no"></ion-input>
             </ion-item>
              <ion-item>
-                <ion-label stacked>Faculty / Center / Institute / Unit / Club / Department:</ion-label>
+                <ion-label floating>Faculty / Center / Institute / Unit / Club / Department:</ion-label>
                 <ion-input type="text" formControlName="faculty"></ion-input>
             </ion-item>
             <ion-item style="padding-bottom: 15px;">
-                <ion-label stacked>Contact Number:</ion-label>
+                <ion-label floating>Contact Number:</ion-label>
                 <ion-input type="text" formControlName="contact_no"></ion-input>
             </ion-item>
         </ion-card>
@@ -40,22 +40,27 @@
         <ion-card>
             <ion-title text-center>Bus Reservation Details</ion-title>
             <ion-item>
-                <ion-label stacked>Activity / Event Description:</ion-label>
+                <ion-label floating>Activity / Event Description:</ion-label>
                 <ion-input type="text" formControlName="event_desc"></ion-input>
             </ion-item>
 
             <ion-item>
-                <ion-label>Type of vehicle:</ion-label>
+                <ion-label inline>Type of vehicle:</ion-label>
                 <ion-select formControlName="vehicle_type">
+                    <ion-option value="bus" selected>Bus</ion-option>
                     <ion-option value="van">Van</ion-option>
-                    <ion-option value="bus">Bus</ion-option>
-                    <ion-option> Other:
-                        <ion-input type="text"></ion-input>
-                    </ion-option>
+                    <ion-option value="other_option"> Other:</ion-option>
+                    <ion-input type="text"></ion-input>
                 </ion-select>
             </ion-item>
+
+            <ion-item *ngIf="isOther">
+                <ion-label>OtherL</ion-label>
+                <ion-input type="text"></ion-input>
+            </ion-item>
             <ion-item>
-                <ion-label>Number of passenger: </ion-label>
+                <ion-label inline>Number of passenger:</ion-label>
+                <ion-input type="number" formControlName="number_of_passenger"></ion-input>
             </ion-item>
 
             <ion-card-content>
@@ -66,16 +71,17 @@
                 </div>
 
                 <div class="div_item">Pick up location: 
-                    <button ion-button (click)="openModal()">Open Modal</button>
+                    <button ion-button round small id="map-modal" (click)="openModal()">Select a Location</button>
                 </div>
 
                 <div class="div_item">Destination:
+                    <button ion-button round small id="map-modal" (click)="openModal()">Select a Location</button>
                 </div>
             </ion-card-content>
             
         </ion-card>
 
-        <button ion-button id="submit-btn">
+        <button ion-button id="submit-btn" type="submit">
             Submit
         </button>
 

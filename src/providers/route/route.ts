@@ -137,7 +137,7 @@ export class RouteProvider {
                 let track_status = bus.track_status
                 //if location is null and track_status === 'OFF', delete marker,
                 //else update marker position
-                if(location == null && track_status){
+                if(location == null){
                     this.allBusMarkers[i].then(marker => {
                         marker.remove();
                     });

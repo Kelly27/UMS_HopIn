@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController} from 'ionic-angular';
 import { BusReservationPage } from '../bus-reservation/bus-reservation';
 import { AlertController } from 'ionic-angular';
 import { DatePicker } from '@ionic-native/date-picker';
  import { DatePickerModule } from 'ion-datepicker';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
-
-
+import { ReservationProvider } from '../../providers/reservation/reservation';
+import { DatePickerDirective } from 'ion-datepicker';
 /**
 * Generated class for the BusReservationAddPage page.
 *
@@ -26,6 +26,9 @@ export class BusReservationAddPage {
 
     public localDate = new Date();
     public date;
+    public isOther:boolean = false;
+
+    @ViewChild(DatePickerDirective) private datepickerDirective:DatePickerDirective;
 
     constructor(
         public navCtrl: NavController,
@@ -33,15 +36,17 @@ export class BusReservationAddPage {
         public alertCtrl: AlertController,
         public formBuilder: FormBuilder,
         private datePicker: DatePicker,
-        public modalCtrl: ModalController
+        public modalCtrl: ModalController,
+        public reservationProv: ReservationProvider
     ) {
         this.addForm = this.formBuilder.group({
-            applicant_name: [''],
-            staff_no: [''],
-            faculty: [''],
-            contact_no: [''],
-            event_desc: [''],
-            vehicle_type: [''],
+            applicant_name: ['', Validators.compose([Validators.required])],
+            staff_no: ['', Validators.compose([Validators.required])],
+            faculty: ['', Validators.compose([Validators.required])],
+            contact_no: ['', Validators.compose([Validators.required])],
+            event_desc: ['', Validators.compose([Validators.required])],
+            vehicle_type: ['', Validators.compose([Validators.required])],
+            number_of_passenger: ['', Validators.compose([Validators.required])],
         });
         console.log('local', this.localDate);
     }
@@ -70,7 +75,20 @@ export class BusReservationAddPage {
 
     openModal(){
         var modalPage = this.modalCtrl.create('MapModalPage');
+
+        modalPage.onDidDismiss(data => {
+            console.log(data);
+            this.isModal = 0;
+        });
         modalPage.present();
         this.isModal = 1;
+    }
+
+    addReservation(){
+        console.log('vali', this.addForm.value, 'date', this.datepickerDirective.modal);
+    }
+
+    public closeDatepicker(){
+        this.datepickerDirective.modal.dismiss();
     }
 }

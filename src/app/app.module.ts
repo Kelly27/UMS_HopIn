@@ -29,6 +29,7 @@ import { BusScheduleProvider } from '../providers/bus-schedule/bus-schedule';
 
 import { MapComponent } from '../components/map/map';
 import { ReportsProvider } from '../providers/reports/reports';
+import { ReservationProvider } from '../providers/reservation/reservation';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { ReportsProvider } from '../providers/reports/reports';
     BusStopProvider,
     BusScheduleProvider,
     ReportsProvider,
-    DatePicker
+    DatePicker,
+    ReservationProvider
   ]
 })
 export class AppModule {}

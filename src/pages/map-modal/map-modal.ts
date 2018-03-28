@@ -8,7 +8,8 @@ import {
     CameraPosition,
     MarkerOptions,
     Marker,
-    Spherical
+    Spherical,
+    GoogleMapsAnimation
 } from '@ionic-native/google-maps';
 
 /**
@@ -28,6 +29,9 @@ export class MapModalPage {
   public map: GoogleMap;
   @ViewChild('map') mapElement: ElementRef;
 
+  public location;
+  public marker;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -42,7 +46,9 @@ export class MapModalPage {
   }
 
   closeModal(){
-    this.viewCtrl.dismiss();
+    if(this.location){
+      this.viewCtrl.dismiss(this.location);
+    }
   }
 
   loadMap(){
@@ -57,14 +63,21 @@ export class MapModalPage {
 
     let element = this.mapElement.nativeElement;
     this.map = this.googleMaps.create(element, mapOptions);
-    console.log('loaded function');
-    this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
-        console.log('map ready');
 
+    this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
         this.map.on(GoogleMapsEvent.MAP_CLICK).subscribe(data=>{
-            this.map.addMarker({
-              position: data
-            });
+          if(this.marker){
+
+            this.marker.remove();
+          }
+          this.map.addMarker({
+            position: data[0],
+            draggable: true,
+            animation: GoogleMapsAnimation.DROP,
+          }).then(m => {
+            this.location = data[0];
+            this.marker = m;
+          });
         });
     });
   }
