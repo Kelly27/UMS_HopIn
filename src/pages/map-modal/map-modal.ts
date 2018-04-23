@@ -38,6 +38,7 @@ export class MapModalPage {
     public viewCtrl: ViewController,
     public googleMaps: GoogleMaps,
   ) {
+    this.location = navParams.get('location');
   }
 
   ionViewDidLoad() {
@@ -46,6 +47,10 @@ export class MapModalPage {
   }
 
   closeModal(){
+    this.viewCtrl.dismiss();
+  }
+
+  submitLoc(){
     if(this.location){
       this.viewCtrl.dismiss(this.location);
     }
@@ -54,7 +59,7 @@ export class MapModalPage {
   loadMap(){
     let mapOptions: GoogleMapOptions = {
         camera:{
-            zoom: 13,
+            zoom: 15,
             target: {
                 lat: 6.033316600000001,
                 lng: 116.12286110000002},
@@ -65,9 +70,17 @@ export class MapModalPage {
     this.map = this.googleMaps.create(element, mapOptions);
 
     this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
+        if(this.location){
+          this.map.addMarker({
+            position: this.location,
+            draggable: true,
+            animation: GoogleMapsAnimation.DROP
+          }).then(m=>{
+            this.marker = m;
+          })
+        }
         this.map.on(GoogleMapsEvent.MAP_CLICK).subscribe(data=>{
           if(this.marker){
-
             this.marker.remove();
           }
           this.map.addMarker({

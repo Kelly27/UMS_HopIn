@@ -18,7 +18,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { GoogleMaps, Spherical } from '@ionic-native/google-maps';
 import { Geolocation} from "@ionic-native/geolocation";
 import { DatePicker } from '@ionic-native/date-picker';
- import { DatePickerModule } from 'ion-datepicker';
 
 import { AnnouncementProvider } from '../providers/announcement/announcement';
 import { BusLocationProvider } from '../providers/bus-location/bus-location';
@@ -47,7 +46,6 @@ import { ReservationProvider } from '../providers/reservation/reservation';
     HttpModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    DatePickerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

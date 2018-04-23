@@ -2,11 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController} from 'ionic-angular';
 import { BusReservationPage } from '../bus-reservation/bus-reservation';
 import { AlertController } from 'ionic-angular';
-import { DatePicker } from '@ionic-native/date-picker';
- import { DatePickerModule } from 'ion-datepicker';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ReservationProvider } from '../../providers/reservation/reservation';
-import { DatePickerDirective } from 'ion-datepicker';
 /**
 * Generated class for the BusReservationAddPage page.
 *
@@ -24,18 +21,27 @@ export class BusReservationAddPage {
     public addForm: FormGroup;
     private isModal = 0;
 
-    public localDate = new Date();
-    public date;
+    public localDate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString();
     public isOther:boolean = false;
+    public pickupLoc;
+    public dropoffLoc;
+    public vehicle:any = 'bus';
 
-    @ViewChild(DatePickerDirective) private datepickerDirective:DatePickerDirective;
+    public form_errs = { applicant_name: false,
+                        staff_no: false,
+                        faculty: false,
+                        contact_no: false,
+                        event_desc: false,
+                        number_of_passenger: false,
+                        pickupLoc: false,
+                        dropoffLoc: false,
+                       }
 
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
         public alertCtrl: AlertController,
         public formBuilder: FormBuilder,
-        private datePicker: DatePicker,
         public modalCtrl: ModalController,
         public reservationProv: ReservationProvider
     ) {
@@ -45,10 +51,12 @@ export class BusReservationAddPage {
             faculty: ['', Validators.compose([Validators.required])],
             contact_no: ['', Validators.compose([Validators.required])],
             event_desc: ['', Validators.compose([Validators.required])],
-            vehicle_type: ['', Validators.compose([Validators.required])],
+            vehicle_type: [this.vehicle],
             number_of_passenger: ['', Validators.compose([Validators.required])],
+            pickupLoc: ['', Validators.compose([Validators.required])],
+            dropoffLoc: ['', Validators.compose([Validators.required])],
+            required_datetime: ['', Validators.compose([Validators.required])],
         });
-        console.log('local', this.localDate);
     }
 
     ionViewDidLoad() {
@@ -57,7 +65,7 @@ export class BusReservationAddPage {
     }
 
     goToBusReserveIndexPage(){
-        let prompt = this.alertCtrl.create({
+        let exit_alrt = this.alertCtrl.create({
             message: "Are you sure you want to cancel?",
             buttons:[{
                 text: 'Yes',
@@ -70,14 +78,25 @@ export class BusReservationAddPage {
                 handler: data => {}
             }]
         });
-        prompt.present();
+        exit_alrt.present();
     }
 
-    openModal(){
-        var modalPage = this.modalCtrl.create('MapModalPage');
+    openModal(modalNo){
+        var modalPage;
+        if(modalNo == 0){
+            modalPage = this.modalCtrl.create('MapModalPage', {location: this.pickupLoc});
+        }
+        else if(modalNo == 1){
+            modalPage = this.modalCtrl.create('MapModalPage', {location: this.dropoffLoc});
+        }
 
         modalPage.onDidDismiss(data => {
-            console.log(data);
+            if(modalNo == 0){ // 0 for pick up
+                this.pickupLoc = data;
+            }
+            else if(modalNo == 1){ // 1 for dest
+                this.dropoffLoc = data;
+            }
             this.isModal = 0;
         });
         modalPage.present();
@@ -85,10 +104,50 @@ export class BusReservationAddPage {
     }
 
     addReservation(){
-        console.log('vali', this.addForm.value, 'date', this.datepickerDirective.modal);
+        console.log(this.addForm.value);
+        for(let key in this.addForm.controls){
+            if(!this.addForm.controls[key].valid){
+                this.form_errs[key] = true;
+            }
+            else{
+                this.form_errs[key] = false;
+            }
+        }
+
+        this.addForm.value.vehicle_type = this.vehicle;
+
+        let submit_alrt = this.alertCtrl.create({
+            message: "Are you sure you want to submit? You will be contacted once the application is approved.",
+            buttons:[{
+                text: 'Yes',
+                handler: data => {
+                    this.reservationProv.storeReservation(this.addForm.value);
+                    this.navCtrl.pop();
+                }
+            },
+            {
+                text: 'No',
+                handler: data => {}
+            }]
+        })
+        if(this.is_errorless()){
+            submit_alrt.present();
+        }
+        else{
+            console.log('err', this.form_errs);
+        }
     }
 
-    public closeDatepicker(){
-        this.datepickerDirective.modal.dismiss();
+    is_errorless(){
+        for(let key in this.form_errs){
+            if(this.form_errs[key] == true){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    onChange($event: string){
+        this.vehicle = $event;
     }
 }
