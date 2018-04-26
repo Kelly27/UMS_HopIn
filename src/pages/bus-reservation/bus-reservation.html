@@ -11,26 +11,33 @@
             </button>
         </ion-buttons>
     </ion-navbar>
-    <ion-searchbar (ionInput)="getItems($event)" id="searchbar"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="search_word" (ionInput)="getItems()" placeholder="Search by Name" id="searchbar"></ion-searchbar>
 </ion-header>
 
 
 <ion-content padding>
-    <ion-card>
+    <ion-card *ngFor="let r of reservation">
         <ion-grid>
+            <ion-row>
+                <ion-col id='underline'>
+                    <p><span id="label">APPLICANT'S NAME:</span> {{r.applicant_info.applicant_name}}</p>
+                </ion-col>
+                <!-- <ion-col> -->
+                <!-- </ion-col> -->
+            </ion-row>
             <ion-row>
                 <ion-col col-4>
                     <ion-label stacked id="label">REFERENCE NO:</ion-label>
-                    <p>JPP-01</p>
+                    <p>JPP-{{r.id | number: '3.0'}}</p>
                 </ion-col>
                 <ion-col col-5>
                     <ion-label stacked id="label">REQUESTED ON:</ion-label>
-                    <p>06 DEC </p>
+                    <p>{{r.created_at | date}}</p>
                 </ion-col>
                 <ion-col col-3>
-                    <ion-label stacked id="label">STATUS:</ion-label>
-                    <p id="danger">Pending</p>
-                    <p id="approved">Approved</p>
+                    <ion-label stacked id="label">STATUS: </ion-label>
+                    <p id="danger" *ngIf="r.approval_status == 0">Pending</p>
+                    <p id="approved" *ngIf="r.approval_status == 1">Approved</p>
                     <a id="detail-navi" href="#">VIEW DETAILS</a>
                 </ion-col>
             </ion-row>

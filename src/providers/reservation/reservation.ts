@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 /*
@@ -31,6 +31,15 @@ export class ReservationProvider {
         console.log('failed: ' + err);
       });
     });
+  }
 
+  getReservationData(){
+    return this.http.get('http://umshopin.com/umshopin_admin/api/reservation/getReservationData')
+      .map(response => response.json());
+  }
+
+  getNewID(){
+    return this.http.get('http://umshopin.com/umshopin_admin/api/reservation/getNewID')
+      .map(response => response.json());
   }
 }

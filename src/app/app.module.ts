@@ -15,7 +15,7 @@ import { ReportPage } from '../pages/report/report';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { GoogleMaps, Spherical } from '@ionic-native/google-maps';
+import { GoogleMaps, Spherical, Geocoder } from '@ionic-native/google-maps';
 import { Geolocation} from "@ionic-native/geolocation";
 import { DatePicker } from '@ionic-native/date-picker';
 
@@ -63,10 +63,11 @@ import { ReservationProvider } from '../providers/reservation/reservation';
     Geolocation,
     StatusBar,
     SplashScreen,
+    Spherical,
+    Geocoder,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AnnouncementProvider,
     BusLocationProvider,
-    Spherical,
     RouteProvider,
     MapProvider,
     BusStopProvider,

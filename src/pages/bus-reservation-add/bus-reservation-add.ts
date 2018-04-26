@@ -26,6 +26,7 @@ export class BusReservationAddPage {
     public pickupLoc;
     public dropoffLoc;
     public vehicle:any = 'bus';
+    public new_id;
 
     public form_errs = { applicant_name: false,
                         staff_no: false,
@@ -56,6 +57,9 @@ export class BusReservationAddPage {
             pickupLoc: ['', Validators.compose([Validators.required])],
             dropoffLoc: ['', Validators.compose([Validators.required])],
             required_datetime: ['', Validators.compose([Validators.required])],
+        });
+        this.reservationProv.getNewID().subscribe(res => {
+            this.new_id = Number(res) + 1;
         });
     }
 
@@ -117,7 +121,8 @@ export class BusReservationAddPage {
         this.addForm.value.vehicle_type = this.vehicle;
 
         let submit_alrt = this.alertCtrl.create({
-            message: "Are you sure you want to submit? You will be contacted once the application is approved.",
+            title: '[ JPP-' + this.new_id + '] Are you sure you want to submit?',
+            message: "Your reference number is JPP-" + this.new_id + ". You will be contacted once the application is approved.",
             buttons:[{
                 text: 'Yes',
                 handler: data => {

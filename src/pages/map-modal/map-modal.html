@@ -7,16 +7,20 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>Choose a Location</ion-title>
+    <ion-title>Pin a Location</ion-title>
     <ion-buttons end>
     <button ion-button (click)="closeModal()">Cancel</button>
     <button ion-button (click)="submitLoc()">Ok</button>
     </ion-buttons>
   </ion-navbar>
-
+  <ion-searchbar class="searchbar"
+    [(ngModel)]="search_place"
+    (ionInput)="search_input()">
+  </ion-searchbar>
 </ion-header>
 
 
 <ion-content>
-  <div #map id="map" style="height: 100%;"></div>
+  <p class="search_list" padding *ngFor="let place of place_list" (click)="moveCamera(place)">{{place.extra.lines[0]}}</p>
+  <div #map id="map" style="height: 50%; position: relative; bottom: 0px;"></div>
 </ion-content>

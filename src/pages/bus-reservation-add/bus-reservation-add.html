@@ -11,7 +11,7 @@
             </button>
         </ion-buttons>
     </ion-navbar>
-    <p padding id="reference">Reference Number: </p>
+    <p padding id="reference">Reference Number: JPP-{{new_id | number: '3.0'}}</p>
 </ion-header>
 
 
@@ -76,14 +76,14 @@
 
             <ion-card-content>
                 <div class="div_item">Pick up location:
-                    <a ion-button round small id="map-modal" (click)="openModal(0)">Select a Location</a>
+                    <a ion-button round small id="map-modal" (click)="openModal(0)">Pin a Location</a>
                     <ion-input type="text" formControlName="pickupLoc" disabled="true" value="{{pickupLoc}}"></ion-input>
                     <div *ngIf="form_errs.pickupLoc" id="form-err">'Please select a pick up location.</div>
                 </div>
 
 
                 <div class="div_item">Destination:
-                    <a ion-button round small id="map-modal" (click)="openModal(1)">Select a Location</a>
+                    <a ion-button round small id="map-modal" (click)="openModal(1)">Pin a Location</a>
                     <ion-input type="text" formControlName="dropoffLoc" disabled="true" value={{dropoffLoc}}></ion-input>
                     <div *ngIf="form_errs.dropoffLoc" id="form-err">'Please select a destination location.</div>
                 </div>

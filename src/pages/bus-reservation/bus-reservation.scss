@@ -5,13 +5,31 @@ page-bus-reservation {
     #label{
         font-size: 9px;
         word-wrap: normal;
+        color: #898989;
     }
     #danger{
-        color: #ed1c24;
+        color: white;
+        font-weight: bold;
+        padding: 2px 3px;
+        border-radius: 5px;
+        margin-top: 5px;
+        text-align: center;
+        background-color: #ed1c24;
     }
     #approved{
-        color: #00a651;
+        color: white;
+        font-weight: bold;
+        padding: 2px 3px;
+        border-radius: 5px;
+        margin-top: 5px;
+        text-align: center;
+        background-color: #00a651;
     }
+
+    #underline{
+        border-bottom: 1px solid #898989 !important;
+    }
+
     #detail-navi{
         font-size: 9px;
     }
