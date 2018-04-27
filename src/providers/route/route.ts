@@ -10,12 +10,10 @@ import { BusScheduleProvider } from '../../providers/bus-schedule/bus-schedule';
 
 /*
   Generated class for the RouteProvider provider.
-
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
 // declare var google;
-
 @Injectable()
 export class RouteProvider {
 
@@ -94,12 +92,10 @@ export class RouteProvider {
             p.remove();
         });
         this.polyList = []; //initialize polyline list
-
         this.busStopMarkerList.forEach(m => {
             m.remove();
         });
         this.busStopMarkerList = []; //initialize marker list
-
         this.allBusMarkers.forEach((bus) => { //remove all created bus marker
             bus.then(marker => {
                 marker.remove();
@@ -149,6 +145,7 @@ export class RouteProvider {
                         var newPosition = JSON.parse(bus.bus_location);
                         let next_stop_data = JSON.parse(bus.next_stop);
                         //google matrix api only accept string for origin and destination
+                        console.log('route.ts', bus.bus_location);
                         let current = newPosition.lat + ',' + newPosition.lng;
                         let next_stop = next_stop_data.location.lat + ',' + next_stop_data.location.lng
                         eta = this.getETA(current, next_stop);
@@ -170,6 +167,8 @@ export class RouteProvider {
     getETA(origin, destination){
         this.busScheduleProvider.getETA(origin, destination).subscribe(res => {
             this.eta = res.rows[0].elements[0].duration.text;
+        }, err => {
+            console.log('route.ts something is wrong');
         });
         console.log('myeta', this.eta);
         return this.eta;

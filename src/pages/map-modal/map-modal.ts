@@ -30,6 +30,7 @@ export class MapModalPage {
   public marker;
   public search_place;
   public place_list;
+  public search_result = {};
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -99,16 +100,16 @@ export class MapModalPage {
     this.geocoder.geocode({
       "address": this.search_place
     }).then(results => {
-      console.log(results);
-      if(results.length > 0){
-        for(var i = 0; i < results.length; i++){
-          if(results[i].adminArea == "Sabah"){
-            new_list.push(results[i]);
-          }
-        }
-        this.place_list = new_list;
-        console.log(this.place_list);
-      }
+      this.search_result = results;
+      // if(this.search_result.length > 0){
+      //   for(var i = 0; i < this.search_result.length; i++){
+      //     if(this.search_result[i].adminArea == "Sabah"){
+      //       new_list.push(this.search_result[i]);
+      //     }
+      //   }
+      //   this.place_list = new_list;
+      //   console.log(this.place_list);
+      // }
     });
   }
 

@@ -28,7 +28,7 @@ export class BusReservationViewPage {
     // this.applicant_info = this.navParams.get('reservation').applicant_info;
     // console.log(this.applicant_info);
     console.log(this.reserve);
-    // this.loadMap();
+    this.loadMap();
   }
 
   loadMap(){
