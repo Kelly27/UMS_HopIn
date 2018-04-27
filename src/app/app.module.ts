@@ -10,6 +10,7 @@ import { AnnouncementPage } from '../pages/announcement/announcement';
 import { AnnouncementDetailPage } from '../pages/announcement-detail/announcement-detail';
 import { BusReservationPage } from '../pages/bus-reservation/bus-reservation';
 import { BusReservationAddPage } from '../pages/bus-reservation-add/bus-reservation-add';
+import { BusReservationViewPage } from '../pages/bus-reservation-view/bus-reservation-view';
 import { ReportPage } from '../pages/report/report';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -41,6 +42,7 @@ import { ReservationProvider } from '../providers/reservation/reservation';
     BusReservationAddPage,
     ReportPage,
     MapComponent,
+    BusReservationViewPage
   ],
   imports: [
     HttpModule,
@@ -57,6 +59,7 @@ import { ReservationProvider } from '../providers/reservation/reservation';
     BusReservationPage,
     BusReservationAddPage,
     ReportPage,
+    BusReservationViewPage
   ],
   providers: [
     GoogleMaps,

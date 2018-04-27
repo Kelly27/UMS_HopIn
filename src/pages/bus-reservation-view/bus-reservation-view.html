@@ -1,0 +1,64 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Reference Number: JPP-{{reserve.id | number: '3.0'}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <!-- <ion-card>
+    <ion-card-header>
+      Applicant's Information
+    </ion-card-header>
+    <ion-card-content id="underline">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-5 id="label">NAME:</ion-col>
+          <ion-col>{{applicant_info.applicant_name}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-5 id="label">CONTACT NUMBER:</ion-col>
+          <ion-col>{{applicant_info.contact_no}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-5 id="label">Faculty / Center / Institute / Unit / Club / Department:</ion-col>
+          <ion-col>{{applicant_info.faculty}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-5 id="label">STAFF NUMBER:</ion-col>
+          <ion-col>{{applicant_info.staff_no}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+    <ion-card-header>
+      Bus Reservation Details
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <div class="activity">
+          <p id="label">ACTIVITY / EVENT DESCRIPTION: </p>
+          <p id="underline">{{reserve.event_desc}}</p>
+        </div>
+        <ion-row>
+          <ion-col col-5 id="label">Type of Vechicle: </ion-col>
+          <ion-col>{{reserve.vehicle_type}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-5 id="label">Number of Passenger: </ion-col>
+          <ion-col>{{reserve.number_of_passenger}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-5 id="label">Bus Required On: </ion-col>
+          <ion-col>{{reserve.required_datetime | date: 'medium'}}</ion-col>
+        </ion-row>
+      </ion-grid>
+      <div>
+        <p id="label">Pick Up Location: </p>
+        <p>{{reserve.pick_up_location}}</p>
+      </div>
+    </ion-card-content>
+  </ion-card> -->
+        <div #map id='map' style="height:100%;"></div>
+</ion-content>

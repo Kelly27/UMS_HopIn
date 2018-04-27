@@ -30,15 +30,15 @@
                     <ion-label stacked id="label">REFERENCE NO:</ion-label>
                     <p>JPP-{{r.id | number: '3.0'}}</p>
                 </ion-col>
-                <ion-col col-5>
+                <ion-col col-4>
                     <ion-label stacked id="label">REQUESTED ON:</ion-label>
-                    <p>{{r.created_at | date}}</p>
+                    <p>{{r.created_at | date : 'medium'}}</p>
                 </ion-col>
-                <ion-col col-3>
+                <ion-col>
                     <ion-label stacked id="label">STATUS: </ion-label>
                     <p id="danger" *ngIf="r.approval_status == 0">Pending</p>
                     <p id="approved" *ngIf="r.approval_status == 1">Approved</p>
-                    <a id="detail-navi" href="#">VIEW DETAILS</a>
+                    <a id="detail-navi" href="#" (click)="view_details(r)">VIEW DETAILS</a>
                 </ion-col>
             </ion-row>
         </ion-grid>

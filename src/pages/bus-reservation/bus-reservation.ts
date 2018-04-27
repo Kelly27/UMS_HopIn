@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { BusReservationAddPage } from '../bus-reservation-add/bus-reservation-add';
+import { BusReservationViewPage } from '../bus-reservation-view/bus-reservation-view';
 import { ReservationProvider } from '../../providers/reservation/reservation';
 
 /**
@@ -77,7 +78,7 @@ export class BusReservationPage {
     this.reservation = this.search_result;
   }
 
-  view_details(){
-    this.navCtrl.push(BusReservationAddPage,{});
+  view_details(r){
+    this.navCtrl.push(BusReservationViewPage,{reservation: r});
   }
 }

@@ -5,10 +5,8 @@ import {
     GoogleMap,
     GoogleMapsEvent,
     GoogleMapOptions,
-    Marker,
     GoogleMapsAnimation,
     Geocoder,
-    CameraPosition
 } from '@ionic-native/google-maps';
 
 /**
@@ -37,7 +35,7 @@ export class MapModalPage {
     public navParams: NavParams,
     public viewCtrl: ViewController,
     public googleMaps: GoogleMaps,
-    public gcoder: Geocoder
+    public geocoder: Geocoder
   ) {
     this.location = navParams.get('location');
   }
@@ -71,15 +69,15 @@ export class MapModalPage {
     this.map = this.googleMaps.create(element, mapOptions);
 
     this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
-        // if(this.location){
-        //   this.map.addMarker({
-        //     position: this.location,
-        //     draggable: true,
-        //     animation: GoogleMapsAnimation.DROP
-        //   }).then(m=>{
-        //     this.marker = m;
-        //   })
-        // }
+        if(this.location){
+          this.map.addMarker({
+            position: this.location,
+            draggable: true,
+            animation: GoogleMapsAnimation.DROP
+          }).then(m=>{
+            this.marker = m;
+          })
+        }
         this.map.on(GoogleMapsEvent.MAP_CLICK).subscribe(data=>{
           if(this.marker){
             this.marker.remove();
@@ -97,24 +95,21 @@ export class MapModalPage {
   }
 
   search_input(){
-    this.gcoder.geocode({
-
+    var new_list = [];
+    this.geocoder.geocode({
+      "address": this.search_place
+    }).then(results => {
+      console.log(results);
+      if(results.length > 0){
+        for(var i = 0; i < results.length; i++){
+          if(results[i].adminArea == "Sabah"){
+            new_list.push(results[i]);
+          }
+        }
+        this.place_list = new_list;
+        console.log(this.place_list);
+      }
     });
-    // var new_list = [];
-    // this.geocoder.geocode({
-    //   "address": this.search_place
-    // }).then(results => {
-    //   console.log(results);
-    //   if(results.length > 0){
-    //     for(var i = 0; i < results.length; i++){
-    //       if(results[i].adminArea == "Sabah"){
-    //         new_list.push(results[i]);
-    //       }
-    //     }
-    //     this.place_list = new_list;
-    //     console.log(this.place_list);
-    //   }
-    // });
   }
 
   moveCamera(place){

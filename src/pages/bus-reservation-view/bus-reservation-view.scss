@@ -1,0 +1,23 @@
+page-bus-reservation-view {
+    #label{
+        font-size: 9px;
+        color: #898989;
+        word-wrap: normal;
+        text-transform: uppercase;
+    }
+    #underline{
+        border-bottom: 1px solid #898989;
+    }
+    .activity{
+        margin-left: 5px;
+    }
+    #map{
+        height: 50%;
+    }
+    ion-card-header{
+        color: #fff !important;
+        text-align: center;
+        font-weight: bold;
+        background-color: #069EFD;
+    }
+}

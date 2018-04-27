@@ -2,13 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { BusScheduleProvider } from '../bus-schedule/bus-schedule';
 import { RouteProvider } from '../route/route';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-
-import {
-    GoogleMaps,
-    GoogleMapsEvent,
-} from '@ionic-native/google-maps';
 import { ToastController  } from 'ionic-angular';
 
 /*

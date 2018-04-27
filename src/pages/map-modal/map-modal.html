@@ -22,5 +22,5 @@
 
 <ion-content>
   <p class="search_list" padding *ngFor="let place of place_list" (click)="moveCamera(place)">{{place.extra.lines[0]}}</p>
-  <div #map id="map" style="height: 50%; position: relative; bottom: 0px;"></div>
+  <div #map id="map" style="height: 100%; position: relative; bottom: 0px;"></div>
 </ion-content>
