@@ -101,15 +101,15 @@ export class MapModalPage {
       "address": this.search_place
     }).then(results => {
       this.search_result = results;
-      // if(this.search_result.length > 0){
-      //   for(var i = 0; i < this.search_result.length; i++){
-      //     if(this.search_result[i].adminArea == "Sabah"){
-      //       new_list.push(this.search_result[i]);
-      //     }
-      //   }
-      //   this.place_list = new_list;
-      //   console.log(this.place_list);
-      // }
+      if(this.search_result.length > 0){
+        for(var i = 0; i < this.search_result.length; i++){
+          if(this.search_result[i].adminArea == "Sabah"){
+            new_list.push(this.search_result[i]);
+          }
+        }
+        this.place_list = new_list;
+        console.log(this.place_list);
+      }
     });
   }
 
