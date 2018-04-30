@@ -1,14 +1,11 @@
 //generates the google map
-import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import {
     GoogleMaps,
     GoogleMap,
     GoogleMapsEvent,
     GoogleMapOptions,
     CameraPosition,
-    MarkerOptions,
-    Marker,
-    Spherical
 } from '@ionic-native/google-maps';
 import { Observable } from 'rxjs/Observable';
 import { BusScheduleProvider } from '../../providers/bus-schedule/bus-schedule';
@@ -88,9 +85,7 @@ import { AlertController } from 'ionic-angular';
                 }
                 this.mapProvider.map.moveCamera(option);
             });
-
         });
-
     }
 
     trafficToggle(){
@@ -122,14 +117,14 @@ import { AlertController } from 'ionic-angular';
 
             setTimeout(() => {
                 try{
-                    let first_route = this.routeProvider.routeArr[0].id
+                    let first_route = [this.routeProvider.routeArr[0].id]
                     this.routeProvider.setSelectedRoute(first_route); //show first route on map on app start up
+                    this.routeProvider.showRoutes();
                 }
                 catch(e){
                     alert('Ooops! Something has gone wrong!');
                     window.location.reload();
                 }
-                this.routeProvider.showRoutes();
             }, 2000);
 
         });
@@ -159,7 +154,6 @@ import { AlertController } from 'ionic-angular';
         alert.addButton({
             text: 'Okay',
             handler: data => {
-                let testCheckboxOpen = false;
                 this.routeProvider.resetRoutes();
                 this.routeProvider.setSelectedRoute(data);
                 this.routeProvider.showRoutes();

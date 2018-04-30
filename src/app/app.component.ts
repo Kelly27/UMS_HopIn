@@ -15,8 +15,8 @@ import { ReportPage } from '../pages/report/report';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  // rootPage: any = HomePage;
-  rootPage: any = BusReservationPage;
+  rootPage: any = HomePage;
+  // rootPage: any = BusReservationPage;
 
   pages: Array<{icon: string, title: string, component: any}>;
 

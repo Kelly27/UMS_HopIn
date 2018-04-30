@@ -2,10 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { MapProvider } from '../../providers/map/map';
-import {
-    GoogleMapsEvent,
-    Spherical,
-} from '@ionic-native/google-maps';
+import { GoogleMapsEvent, Spherical } from '@ionic-native/google-maps';
 import { BusScheduleProvider } from '../../providers/bus-schedule/bus-schedule';
 
 /*
