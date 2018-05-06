@@ -117,12 +117,12 @@ import { AlertController } from 'ionic-angular';
 
             setTimeout(() => {
                 try{
-                    let first_route = [this.routeProvider.routeArr[0].id]
+                    let first_route = [this.routeProvider.routeArr[0].id];
                     this.routeProvider.setSelectedRoute(first_route); //show first route on map on app start up
                     this.routeProvider.showRoutes();
                 }
                 catch(e){
-                    alert('Ooops! Something has gone wrong!');
+                    alert('Ooops! Something has gone wrong at map.ts!');
                     window.location.reload();
                 }
             }, 2000);

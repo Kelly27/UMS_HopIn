@@ -96,20 +96,32 @@ export class MapModalPage {
   }
 
   search_input(){
+    var i = 0;
     var new_list = [];
     this.geocoder.geocode({
       "address": this.search_place
     }).then(results => {
+      console.log([results].length);
       this.search_result = results;
-      if(this.search_result.length > 0){
-        for(var i = 0; i < this.search_result.length; i++){
-          if(this.search_result[i].adminArea == "Sabah"){
+      if(results[0]){
+        while(results[i]){
+          if(results[i].adminArea == "Sabah"){
             new_list.push(this.search_result[i]);
           }
+          i++;
         }
         this.place_list = new_list;
         console.log(this.place_list);
       }
+      // if(results.length > 0){
+      //   for(var i = 0; i < results.length; i++){
+      //     if(this.search_result[i].adminArea == "Sabah"){
+      //       new_list.push(this.search_result[i]);
+      //     }
+      //   }
+      //   this.place_list = new_list;
+      //   console.log(this.place_list);
+      // }
     });
   }
 
