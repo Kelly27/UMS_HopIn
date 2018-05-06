@@ -127,7 +127,6 @@ export class RouteProvider {
         for(var i = 0; i < this.allBusMarkers.length; i++){
             if(i + 1 == bus.id){
                 let location = JSON.parse(bus.bus_location);
-                let track_status = bus.track_status
                 //if location is null and track_status === 'OFF', delete marker,
                 //else update marker position
                 if(location == null){
@@ -158,7 +157,6 @@ export class RouteProvider {
         }
         //add Marker
         this.addBusMarker(bus);
-        // this.busLocationProvider.setBusMarkers(this.allBusMarkers);
     }
 
     getETA(origin, destination){
