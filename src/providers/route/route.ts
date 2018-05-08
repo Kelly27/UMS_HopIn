@@ -93,9 +93,9 @@ export class RouteProvider {
             m.remove();
         });
         this.busStopMarkerList = []; //initialize marker list
-        this.allBusMarkers.forEach((bus) => { //remove all created bus marker
-            bus.then(marker => {
-                marker.remove();
+        this.allBusMarkers.forEach((i) => { //remove all created bus marker
+            i.marker.then(m => {
+                m.remove();
             });
         });
         this.allBusMarkers = [];
@@ -119,25 +119,28 @@ export class RouteProvider {
             icon: {url: './assets/icon/bus.png', size: {width: 35, height: 45}},
             title: 'Bus Number: ' + bus.bus_number + '\n Next Stop: '+ '\n ETA: '
         });
-        this.allBusMarkers.push(m);
+        let data = { bus: bus.id, marker: m};
+        this.allBusMarkers.push(data);
     }
 
     updateBusMarker(bus){
         var eta = '';
+        console.log('marker', this.allBusMarkers);
+        console.log('bus', bus);
         for(var i = 0; i < this.allBusMarkers.length; i++){
-            if(i + 1 == bus.id){
+            if(this.allBusMarkers[i].bus == bus.id){
                 let location = JSON.parse(bus.bus_location);
                 //if location is null and track_status === 'OFF', delete marker,
                 //else update marker position
                 if(location == null){
-                    this.allBusMarkers[i].then(marker => {
+                    this.allBusMarkers[i].marker.then(marker => {
                         marker.remove();
                     });
                     this.allBusMarkers.splice(i, 1);
                     console.log(this.allBusMarkers);
                 }
                 else{
-                    this.allBusMarkers[i].then(marker =>{
+                    this.allBusMarkers[i].marker.then(marker =>{
                         var newPosition = JSON.parse(bus.bus_location);
                         let next_stop_data = JSON.parse(bus.next_stop);
                         //google matrix api only accept string for origin and destination
