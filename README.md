@@ -1,26 +1,16 @@
-This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
+# UMS_HopIn
+This is an Ionic framework project. Hence you need to have Cordova installed in your computer.
+For git repository, go to https://github.com/Kelly27/UMS_HopIn
 
-## How to use this template
+## Getting started
+1. Run command 'npm install'. (For this you need to have NodeJS installed in your computer)
 
-*This template does not work on its own*. The shared files for each starter are found in the [ionic2-app-base repo](https://github.com/ionic-team/ionic2-app-base).
+## Deploy
+### Add device
+Run command 'ionic cordova add platform android' for android, or 'ionic cordova add platform ios' for ios.
 
-To use this template, either create a new ionic project using the ionic node.js utility, or copy the files from this repository into the [Starter App Base](https://github.com/ionic-team/ionic2-app-base).
+### Deploy on device
+This method only works for Android. With your Android smartphone connected to your computer and the 'USB debugging' setting on,
+run command 'ionic cordova run android --device'.
 
-### With the Ionic CLI:
-
-Take the name after `ionic2-starter-`, and that is the name of the template to be used when using the `ionic start` command below:
-
-```bash
-$ sudo npm install -g ionic cordova
-$ ionic start mySideMenu sidemenu
-```
-
-Then, to run it, cd into `mySideMenu` and run:
-
-```bash
-$ ionic cordova platform add ios
-$ ionic cordova run ios
-```
-
-Substitute ios for android if not on a Mac.
-
+Note: These commands work as of today (20th June 2018). The commands may be different in the future.
